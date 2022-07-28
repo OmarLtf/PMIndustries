@@ -1,0 +1,11 @@
+.body {
+  margin: 0%;
+}
+.navBar {
+  margin: 0px;
+  position: absolute;
+  height: 100%;
+  width: 20%;
+  background-color: lightblue;
+  margin-right: 20px;
+}
