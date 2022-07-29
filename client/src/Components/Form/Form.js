@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Form.css";
+import Axios from "axios";
 
 function Form() {
   const [matricule, setMatricule] = useState("");
@@ -8,10 +9,15 @@ function Form() {
   const [password, setPassword] = useState("");
 
   const addUser = (e) => {
-    e.preventDefault();
-    const user = { matricule, name, role, password };
-    console.log(user);
-    clearFields();
+    Axios.post("http://localhost:3001/adduser", {
+      userName: name,
+      matricule: matricule,
+      role: role,
+      password: password,
+    }).then((response) => {
+      console.log(response);
+    });
+    // clearFields();
   };
 
   const clearFields = () => {
@@ -47,10 +53,10 @@ function Form() {
           <label>Role</label>
           <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option>Choisir une role</option>
-            <option>Type A</option>
-            <option>Type B</option>
-            <option>Type C</option>
-            <option>Type D</option>
+            <option>Administrateur</option>
+            <option>Cheff production</option>
+            <option>Cheff élot</option>
+            <option>Consulteur</option>
           </select>
         </div>
         <div>

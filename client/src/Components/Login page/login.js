@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Logo from "./PMI-Logo - Copie.png";
+import Axios from "axios";
 import "./login.css";
 
 function Login() {
@@ -7,12 +8,14 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const login = (e) => {
-    e.preventDefault();
-    const userInformation = { name, password };
-    console.log(userInformation);
-    setName("");
-    setPassword("");
+    Axios.post("http://localhost:3001/login", {
+      userName: name,
+      password: password,
+    }).then((response) => {
+      console.log("hello");
+    });
   };
+
   return (
     <div>
       <img src={Logo} alt="logo" />

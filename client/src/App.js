@@ -2,6 +2,7 @@ import Form from "./Components/Form/Form";
 import Navbar from "./Components/NavBar/nav";
 import "./index.css";
 
+
 function App() {
   return (
     <div className="addUser">
@@ -9,6 +10,7 @@ function App() {
       <div></div>
       <Form />
     </div>
+    
   );
 }
 

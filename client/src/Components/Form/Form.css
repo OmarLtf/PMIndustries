@@ -12,7 +12,7 @@ form {
 input {
   /* margin: 20px; */
   border-radius: 3px;
-  border: 1px solid #eaf0f7;
+  border: 1px solid #d8dce1;
   height: 25px;
   width: 380px;
   font-size: 13px;
@@ -22,7 +22,7 @@ input {
 select {
   /* margin: 20px; */
   border-radius: 3px;
-  border-color: lightblue;
+  border: 1px solid #d8dce1;
   height: 30px;
   width: 385px;
   font-size: 13px;
