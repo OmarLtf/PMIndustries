@@ -35,8 +35,8 @@ app.get("/data", (req, res) => {
   });
 });
 
-app.get("/login", (req, res) => {
-  const name = req.body.name;
+app.post("/login", (req, res) => {
+  const name = req.body.userName;
   const password = req.body.password;
   db.query(
     "SELECT * FROM users WHERE userName = ? AND password = ?",

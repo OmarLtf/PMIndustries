@@ -12,14 +12,14 @@ function Login() {
       userName: name,
       password: password,
     }).then((response) => {
-      console.log("hello");
+      console.log(response);
     });
   };
 
   return (
     <div>
       <img src={Logo} alt="logo" />
-      <form onSubmit={login}>
+      <form>
         <label>Nom d'utilisateur</label>
         <input
           type="test"
@@ -34,7 +34,7 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button>Connexion</button>
+        <button onClick={login}>Connexion</button>
       </form>
     </div>
   );
