@@ -53,6 +53,15 @@ app.post("/login", (req, res) => {
   );
 });
 
+app.delete("/delete/:id", (req, res) => {
+  console.log(req.params.id);
+
+    const sql = "DELETE FROM users WHERE id = ?";
+    db.query(sql, req.params.id, (err, result) => {
+      console.log("success Deleting!", req.params.id);
+    });
+});
+
 app.listen(3001, () => {
   console.log("running on 3001!");
 });
