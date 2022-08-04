@@ -54,9 +54,9 @@ function Form() {
           <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option>Choisir une role</option>
             <option>Administrateur</option>
-            <option>Cheff production</option>
-            <option>Cheff élot</option>
-            <option>Consulteur</option>
+            <option>Chef production</option>
+            <option>Chef ilot</option>
+            <option>Consultant</option>
           </select>
         </div>
         <div>

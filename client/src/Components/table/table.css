@@ -50,7 +50,8 @@ tr:nth-child(even):hover {
 
 .fl-table thead th:nth-child(odd) {
   color: #ffffff;
-  background: #324960;
+  background: rgba(71, 147, 227, 1);
+  /* background: #324960; */
 }
 .fl-table tr:nth-child(even) {
   background: #f8f8f8;
@@ -58,7 +59,8 @@ tr:nth-child(even):hover {
 .delete,
 .update {
   padding: 5px;
-  margin: 0px 10px 5px 0px;
+  /* margin: 0px 10px 5px 0px; */
+  width: 40px;
   color: white;
   border-radius: 10px;
   font-weight: normal;
@@ -66,9 +68,19 @@ tr:nth-child(even):hover {
   color: black;
   background-color: rgb(208, 208, 208);
 }
+.delete {
+  margin-right: 5px;
+}
+.update {
+  margin-left: 5px;
+}
 .delete:hover,
 .update:hover {
   background-color: rgba(253, 252, 252, 0.378);
+}
+
+thead {
+  font-size: 14px;
 }
 
 /* Responsive */

@@ -8,6 +8,7 @@ function GetTable() {
   const getUsers = () => {
     Axios.get("http://localhost:3001/data").then((res) => {
       setData(res.data);
+      console.log(res);
     });
   };
   useEffect(() => {

@@ -1,14 +1,19 @@
 import "./table.css";
 import Axios from "axios";
 import { useState } from "react";
+import { useQuery } from "react-query";
 
 const Delete = (id) => {
-  if (window.confirm("are us sure")) {
-    Axios.delete(`http://localhost:3001/delete/${id}`).then((res) => {
-      console.log("hello ");
-    });
+  if (window.confirm("Are you sure !")) {
+    Axios.delete(`http://localhost:3001/delete/${id}`);
   }
 };
+
+// const DeleteUser = (id) => {
+//   const { data } = useQuery("delete-user", Delete(id), {
+//     refetchOnMount: true,
+//   });
+// };
 
 const Table = ({ data, column }) => {
   return (
@@ -43,6 +48,7 @@ const TableRow = ({ item, column }) => (
         className="delete"
         onClick={() => {
           Delete(item.id);
+          window.location.reload();
         }}
       >
         <i className="fa-solid fa-trash"></i>
