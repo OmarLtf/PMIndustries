@@ -7,6 +7,7 @@ function Form() {
   const [lot, setLot] = useState("");
   const [OF, setOF] = useState("");
   const [CR, setCR] = useState("");
+
   const [CP, setCP] = useState("");
   const data = {
     OF: OF,
