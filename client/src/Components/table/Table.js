@@ -1,19 +1,14 @@
 import "./table.css";
 import Axios from "axios";
 import { useState } from "react";
-import { useQuery } from "react-query";
+
+// import { ToastContainer, toast } from "react-toastify";
 
 const Delete = (id) => {
   if (window.confirm("Are you sure !")) {
     Axios.delete(`http://localhost:3001/delete/${id}`);
   }
 };
-
-// const DeleteUser = (id) => {
-//   const { data } = useQuery("delete-user", Delete(id), {
-//     refetchOnMount: true,
-//   });
-// };
 
 const Table = ({ data, column }) => {
   return (

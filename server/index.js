@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
 const mysql = require("mysql");
-const cors = require("cors");
 const nodemon = require("nodemon");
+
+const cors = require("cors");
 
 app.use(express.json());
 app.use(cors());
@@ -56,10 +57,19 @@ app.post("/login", (req, res) => {
 app.delete("/delete/:id", (req, res) => {
   console.log(req.params.id);
 
-    const sql = "DELETE FROM users WHERE id = ?";
-    db.query(sql, req.params.id, (err, result) => {
-      console.log("success Deleting!", req.params.id);
-    });
+  const sql = "DELETE FROM users WHERE id = ?";
+  db.query(sql, req.params.id, (err, result) => {
+    console.log("success Deleting!", req.params.id);
+  });
+});
+
+///////////////// New interface //////////////////////
+
+app.get("/data/new_inter", (req, res) => {
+  const sql = "SELECT * FROM suivi_production_dape_3";
+  db.query(sql, (request, result) => {
+    res.send(result);
+  });
 });
 
 app.listen(3001, () => {

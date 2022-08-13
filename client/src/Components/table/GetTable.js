@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Axios from "axios";
 import Table from "./Table";
 
-function GetTable() {
+function GetTable(props) {
   const [data, setData] = useState([]);
 
   const getUsers = () => {
