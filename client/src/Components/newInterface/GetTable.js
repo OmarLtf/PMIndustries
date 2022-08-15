@@ -4,26 +4,7 @@ import Table from "../table/Table";
 import "./table.css";
 
 function GetTable(props) {
-  const [data, setData] = useState([]);
 
-  const getUsers = () => {
-    Axios.get("http://localhost:3001/data/new_inter").then((res) => {
-      setData(res.data);
-      console.log(res);
-    });
-  };
-  useEffect(() => {
-    getUsers();
-  }, []);
-  console.log(props.input);
-
-  const filter = (rows) => {
-    return rows.filter(
-      (rows) =>
-        rows.OF.toString().toLowerCase().indexOf(props.input.OF) === 0 &&
-        rows.Lot.toString().toLowerCase().indexOf(props.input.Lot) === 0
-    );
-  };
 
   const column = [
     { heading: "OF", value: "OF" },
@@ -44,7 +25,7 @@ function GetTable(props) {
     { heading: "Rest à Exporter", value: "Rest_Exporter" },
     { heading: "Taux de Rebut", value: "Taux_De_Rebut" },
   ];
-  return <Table data={filter(data)} column={column} />;
+  return <Table data={props.data} column={column} />;
 }
 
 export default GetTable;

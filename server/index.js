@@ -72,6 +72,22 @@ app.get("/data/new_inter", (req, res) => {
   });
 });
 
+////////////////////update row//////////////////////////
+app.post("/updaterow", (req, res) => {
+  const CR = req.body.newCR;
+  const CP = req.body.newCP;
+  const OF = req.body.id;
+  console.log(CR);
+  console.log(CP);
+  console.log(OF)
+  // const sqlInsert =
+  //   "INSERT INTO users (userName, role, matricule, password) VALUES (?, ?, ?, ?);";
+
+  // db.query(sqlInsert, [userName, role, matricule, password], (err, result) => {
+  //   console.log("success!");
+  // });
+});
+
 app.listen(3001, () => {
   console.log("running on 3001!");
 });
