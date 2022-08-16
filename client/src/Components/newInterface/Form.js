@@ -34,13 +34,23 @@ function Form() {
 
   const updateRow = () => {
     const filteredData = filter(data);
+
     if (filteredData.length === 1) {
-      Axios.post("http://localhost:3001/updaterow", {
-        newCR: CR,
-        newCP: CP,
-        id: filteredData[0].OF,
-      });
-    } else window.alert("choose a row !");
+      if (CR !== null && CP !== null) {
+        if (CR + CP > parseInt(filteredData[0].D_montage)) {
+          console.log(CR + CP);
+          console.log(typeof parseInt(filteredData[0].D_montage) );
+          console.log(parseInt(filteredData[0].D_montage));
+          window.alert("Somme Supérieur à quantité démonté !");
+        } else {
+          Axios.post("http://localhost:3001/updaterow", {
+            newCR: CR,
+            newCP: CP,
+            id: filteredData[0].OF,
+          });
+        }
+      }
+    } else window.alert("Choisir un seul ligne !");
   };
 
   return (

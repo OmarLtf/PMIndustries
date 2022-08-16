@@ -4,8 +4,6 @@ import Table from "../table/Table";
 import "./table.css";
 
 function GetTable(props) {
-
-
   const column = [
     { heading: "OF", value: "OF" },
     { heading: "Lot", value: "Lot" },
@@ -14,9 +12,10 @@ function GetTable(props) {
     { heading: "Référence Sorea", value: "R_f_rence_Sorea" },
     { heading: "Date de commande", value: "Date_De_Commande" },
     { heading: "Qt Ddée", value: "Qt_Dd_e" },
-    { heading: "Démontage", value: "D_montage" },
     { heading: "Montage", value: "Montage" },
+    { heading: "Démontage", value: "D_montage" },
     { heading: "Qt Rebut", value: "Qt_Rebut" },
+    { heading: "Qt Préparé", value: "Qt_prepare" },
     { heading: "Bloquage", value: "Bloquage" },
     { heading: "Zingueur", value: "Zingueur" },
     { heading: "Qt Exporté", value: "Qt_Export" },

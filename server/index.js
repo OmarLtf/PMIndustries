@@ -77,15 +77,13 @@ app.post("/updaterow", (req, res) => {
   const CR = req.body.newCR;
   const CP = req.body.newCP;
   const OF = req.body.id;
-  console.log(CR);
-  console.log(CP);
-  console.log(OF)
-  // const sqlInsert =
-  //   "INSERT INTO users (userName, role, matricule, password) VALUES (?, ?, ?, ?);";
 
-  // db.query(sqlInsert, [userName, role, matricule, password], (err, result) => {
-  //   console.log("success!");
-  // });
+  const sqlInsert =
+    " UPDATE suivi_production_dape_3 SET Qt_Rebut = ?, Qt_prepare = ? WHERE suivi_production_dape_3.OF = ? ;";
+
+  db.query(sqlInsert, [CR, CP, OF.toString()], (err, result) => {
+    console.log("success update update!");
+  });
 });
 
 app.listen(3001, () => {
