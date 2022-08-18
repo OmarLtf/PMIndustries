@@ -86,6 +86,30 @@ app.post("/updaterow", (req, res) => {
   });
 });
 
+/////////////////////Zinguage///////////////////////////
+app.post("/zinguage/updaterow", (req, res) => {
+  const zinguage = req.body.zinguage;
+  const OF = req.body.id;
+  const sqlInsert =
+    " UPDATE suivi_production_dape_3 SET Zingueur = ? WHERE suivi_production_dape_3.OF = ? ;";
+
+  db.query(sqlInsert, [zinguage, OF.toString()], (err, result) => {
+    console.log("success update update!");
+  });
+});
+
+/////////////////////Bloquage///////////////////////////
+app.post("/bloquage/updaterow", (req, res) => {
+  const zinguage = req.body.zinguage;
+  const OF = req.body.id;
+  const sqlInsert =
+    " UPDATE suivi_production_dape_3 SET Bloquage = ? WHERE suivi_production_dape_3.OF = ? ;";
+
+  db.query(sqlInsert, [zinguage, OF.toString()], (err, result) => {
+    console.log("success update update!");
+  });
+});
+
 app.listen(3001, () => {
   console.log("running on 3001!");
 });

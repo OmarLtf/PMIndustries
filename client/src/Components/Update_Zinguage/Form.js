@@ -6,15 +6,9 @@ import GetTable from "./GetTable";
 function Form() {
   const [lot, setLot] = useState("");
   const [OF, setOF] = useState("");
-  const [CR, setCR] = useState("");
-  const [CP, setCP] = useState("");
+  const [Qt_tr, setQtTr] = useState("");
+  const [Qt_lib, setQtLib] = useState("");
   const [data, setData] = useState([]);
-
-  const updateData = {
-    CR: CR,
-    CP: CP,
-  };
-
   const getUsers = () => {
     Axios.get("http://localhost:3001/data/new_inter").then((res) => {
       setData(res.data);
@@ -36,19 +30,12 @@ function Form() {
     const filteredData = filter(data);
 
     if (filteredData.length === 1) {
-      if (CR !== null && CP !== null) {
-        if (CR + CP > parseInt(filteredData[0].D_montage)) {
-          console.log(CR + CP);
-          console.log(typeof parseInt(filteredData[0].D_montage) );
-          console.log(parseInt(filteredData[0].D_montage));
-          window.alert("Somme Supérieur à quantité démonté !");
-        } else {
-          Axios.post("http://localhost:3001/updaterow", {
-            newCR: CR,
-            newCP: CP,
-            id: filteredData[0].OF,
-          });
-        }
+      if (Qt_lib !== null && Qt_tr !== null) {
+        var Qt_zinguage = parseInt(Qt_tr) - parseInt(Qt_lib);
+        Axios.post("http://localhost:3001/zinguage/updaterow", {
+          zinguage: Qt_zinguage,
+          id: filteredData[0].OF,
+        });
       }
     } else window.alert("Choisir un seul ligne !");
   };
@@ -72,21 +59,21 @@ function Form() {
             />
           </div>
           <div className="field">
-            <label>Quantité préparé</label>
+            <label>Qunatité Transféré</label>
             <input
               type="text"
               required
-              onChange={(e) => setCP(e.target.value)}
+              onChange={(e) => setQtTr(e.target.value)}
             />
           </div>
         </div>
         <div className="formCell">
           <div className="field">
-            <label>Champ Rebut</label>
+            <label>Quantité Liberé</label>
             <input
               type="text"
               required
-              onChange={(e) => setCR(e.target.value)}
+              onChange={(e) => setQtLib(e.target.value)}
             />
           </div>
           <div className="field">
@@ -98,7 +85,7 @@ function Form() {
           Update
         </button>
       </form>
-      <GetTable update={updateData} data={filter(data)} />
+      <GetTable data={filter(data)} />
     </div>
   );
 }
