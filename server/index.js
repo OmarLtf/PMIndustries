@@ -110,6 +110,27 @@ app.post("/bloquage/updaterow", (req, res) => {
   });
 });
 
+/////////////////////Montage///////////////////////////
+app.post("/montage/updaterow", (req, res) => {
+  const montage = req.body.montage;
+  const encoursBrut = req.body.encoursBrut;
+  const encoursNet = req.body.encoursNet;
+  const OF = req.body.id;
+  const sqlInsert =
+    " UPDATE suivi_production_dape_3 SET Montage = ?, Encours_Atelier_Net = ?, Encours_Atelier_Brut = ? WHERE suivi_production_dape_3.OF = ? ;";
+
+  db.query(
+    sqlInsert,
+    [montage, encoursBrut, encoursNet, OF.toString()],
+    (err, result) => {
+      console.log("success update update!");
+      console.log(montage);
+      console.log(encoursBrut);
+      console.log(encoursNet);
+    }
+  );
+});
+
 app.listen(3001, () => {
   console.log("running on 3001!");
 });

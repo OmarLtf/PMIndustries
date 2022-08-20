@@ -6,9 +6,9 @@ import GetTable from "./GetTable";
 function Form() {
   const [lot, setLot] = useState("");
   const [OF, setOF] = useState("");
-  const [Qt_tr, setQtTr] = useState("");
-  const [Qt_lib, setQtLib] = useState("");
+  const [montage, setMontage] = useState("");
   const [data, setData] = useState([]);
+
   const getUsers = () => {
     Axios.get("http://localhost:3001/data/new_inter").then((res) => {
       setData(res.data);
@@ -30,13 +30,18 @@ function Form() {
     const filteredData = filter(data);
 
     if (filteredData.length === 1) {
-      if (Qt_lib !== null && Qt_tr !== null) {
-        var Qt_zinguage =
-          parseInt(Qt_tr) -
-          parseInt(Qt_lib) +
+      if (montage !== null) {
+        const finalMontage =
+          parseInt(filteredData[0].Montage) + parseInt(montage);
+        const encoursBrut = parseInt(filteredData[0].Qt_prepare) - finalMontage;
+        const encoursNet =
+          parseInt(filteredData[0].Qt_prepare) -
+          parseInt(filteredData[0].Zingueur) -
           parseInt(filteredData[0].Bloquage);
-        Axios.post("http://localhost:3001/bloquage/updaterow", {
-          zinguage: Qt_zinguage,
+        Axios.post("http://localhost:3001/montage/updaterow", {
+          montage: finalMontage,
+          encoursBrut: encoursBrut,
+          encoursNet: encoursNet,
           id: filteredData[0].OF,
         });
       }
@@ -48,12 +53,6 @@ function Form() {
       <form>
         <div className="formCell">
           <div className="field">
-            <label>Lot</label>
-            <input type="text" onChange={(e) => setLot(e.target.value)} />
-          </div>
-        </div>
-        <div className="formCell">
-          <div className="field">
             <label>Ordre de Fabrication</label>
             <input
               type="text"
@@ -62,21 +61,17 @@ function Form() {
             />
           </div>
           <div className="field">
-            <label>Qunatité Transféré</label>
-            <input
-              type="text"
-              required
-              onChange={(e) => setQtTr(e.target.value)}
-            />
+            <label>Lot</label>
+            <input type="text" onChange={(e) => setLot(e.target.value)} />
           </div>
         </div>
         <div className="formCell">
           <div className="field">
-            <label>Quantité Liberé</label>
+            <label>Montage</label>
             <input
               type="text"
               required
-              onChange={(e) => setQtLib(e.target.value)}
+              onChange={(e) => setMontage(e.target.value)}
             />
           </div>
           <div className="field">
