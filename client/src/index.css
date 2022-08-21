@@ -1,8 +1,0 @@
-body {
-  margin: 0px;
-}
-.addUser {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}

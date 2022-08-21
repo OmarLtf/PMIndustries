@@ -25,9 +25,9 @@ select {
   border-radius: 3px;
   border: 1px solid #d8dce1;
   height: 30px;
-  width: 385px;
+  width: 500px;
   font-size: 13px;
-  margin: 10px;
+  margin: 5px;
 }
 
 .formCell {

@@ -131,6 +131,31 @@ app.post("/montage/updaterow", (req, res) => {
   );
 });
 
+/////////////////////demantage///////////////////////////
+app.post("/demantage/updaterow", (req, res) => {
+  const demantage = req.body.demantage;
+  const OF = req.body.id;
+  const sqlInsert =
+    " UPDATE suivi_production_dape_3 SET D_montage= ? WHERE suivi_production_dape_3.OF = ? ;";
+
+  db.query(sqlInsert, [demantage, OF.toString()], (err, result) => {
+    console.log("success update update!");
+  });
+});
+
+/////////////////////Export///////////////////////////
+app.post("/Export/updaterow", (req, res) => {
+  const exporte = req.body.exporte;
+  const rebut = req.body.rebut;
+  const OF = req.body.id;
+  const sqlInsert =
+    " UPDATE suivi_production_dape_3 SET Qt_Export= ? , Rbut_export = ? WHERE suivi_production_dape_3.OF = ? ;";
+
+  db.query(sqlInsert, [exporte, rebut, OF.toString()], (err, result) => {
+    console.log("success update update!");
+  });
+});
+
 app.listen(3001, () => {
   console.log("running on 3001!");
 });

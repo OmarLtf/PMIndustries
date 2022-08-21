@@ -8,6 +8,7 @@ function Form() {
   const [OF, setOF] = useState("");
   const [montage, setMontage] = useState("");
   const [data, setData] = useState([]);
+  const [rebut, setRebut] = useState("");
 
   const getUsers = () => {
     Axios.get("http://localhost:3001/data/new_inter").then((res) => {
@@ -30,9 +31,10 @@ function Form() {
     const filteredData = filter(data);
 
     if (filteredData.length === 1) {
-      if (montage !== null) {
+      if (montage !== null && rebut !== null) {
+        const calcMontage = parseInt(montage) - parseInt(rebut);
         const finalMontage =
-          parseInt(filteredData[0].Montage) + parseInt(montage);
+          parseInt(filteredData[0].Montage) + parseInt(calcMontage);
         const encoursBrut = parseInt(filteredData[0].Qt_prepare) - finalMontage;
         const encoursNet =
           parseInt(filteredData[0].Qt_prepare) -
@@ -53,6 +55,12 @@ function Form() {
       <form>
         <div className="formCell">
           <div className="field">
+            <label>Lot</label>
+            <input type="text" onChange={(e) => setLot(e.target.value)} />
+          </div>
+        </div>
+        <div className="formCell">
+          <div className="field">
             <label>Ordre de Fabrication</label>
             <input
               type="text"
@@ -61,17 +69,21 @@ function Form() {
             />
           </div>
           <div className="field">
-            <label>Lot</label>
-            <input type="text" onChange={(e) => setLot(e.target.value)} />
-          </div>
-        </div>
-        <div className="formCell">
-          <div className="field">
-            <label>Montage</label>
+            <label>Quantité monté</label>
             <input
               type="text"
               required
               onChange={(e) => setMontage(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="formCell">
+          <div className="field">
+            <label>Champ Rebut</label>
+            <input
+              type="text"
+              required
+              onChange={(e) => setRebut(e.target.value)}
             />
           </div>
           <div className="field">

@@ -19,7 +19,6 @@ const Table = ({ data, column }) => {
             {column.map((item, index) => (
               <TableHeadItem item={item} />
             ))}
-            <th>Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -38,20 +37,6 @@ const TableRow = ({ item, column }) => (
     {column.map((columnItem, index) => {
       return <td>{item[`${columnItem.value}`]}</td>;
     })}
-    <td>
-      <button
-        className="delete"
-        onClick={() => {
-          Delete(item.id);
-          window.location.reload();
-        }}
-      >
-        <i className="fa-solid fa-trash"></i>
-      </button>
-      <button className="update">
-        <i className="fa-solid fa-unlock"></i>
-      </button>
-    </td>
   </tr>
 );
 
