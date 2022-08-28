@@ -1,11 +1,14 @@
-import React from 'react'
-
+import { Rout } from "react-router-dom";
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import Nav from "./navBarTest";
+import "./interface.css"
 function nav() {
   return (
-    <div>
-      
-    </div>
-  )
+    <BrowserRouter>
+      <Nav></Nav>
+    </BrowserRouter>
+  );
 }
 
-export default nav
+export default nav;

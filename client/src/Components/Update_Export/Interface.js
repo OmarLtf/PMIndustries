@@ -6,7 +6,6 @@ import "./Interface.css";
 function Interface() {
   return (
     <div>
-      <h1 className="title">Tableau Export</h1>
       <Form />
     </div>
   );

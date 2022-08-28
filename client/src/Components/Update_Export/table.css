@@ -8,9 +8,8 @@ body {
 .table-wrapper {
   margin: 20px;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.047);
-  width: 78%;
   float: right;
-  margin-right: 20px;
+  margin-left: 0px;
   height: 470px;
   overflow-y: scroll;
 }

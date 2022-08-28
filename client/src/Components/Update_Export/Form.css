@@ -6,8 +6,9 @@ form {
   background-color: white;
   border-radius: 10px;
   margin: 20px;
-  width: 78%;
+  width: 100%;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.047);
+  margin-left: 0px;
 }
 
 input {
@@ -44,6 +45,7 @@ label {
 .containor {
   display: flex;
   flex-direction: column;
+  margin-left: 18%;
 }
 
 .buttonUpdate {

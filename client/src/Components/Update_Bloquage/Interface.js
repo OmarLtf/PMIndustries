@@ -6,7 +6,6 @@ import "./Interface.css";
 function Interface() {
   return (
     <div>
-      <h1>Tableau Bloquage</h1>
       <Form />
     </div>
   );

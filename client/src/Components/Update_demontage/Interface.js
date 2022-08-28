@@ -6,7 +6,6 @@ import "./Interface.css";
 function Interface() {
   return (
     <div>
-      <h1>Tableau demontage</h1>
       <Form />
     </div>
   );

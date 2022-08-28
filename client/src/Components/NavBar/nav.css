@@ -2,10 +2,24 @@
   margin: 0%;
 }
 .navBar {
-  margin: 0px;
-  position: absolute;
-  height: 100%;
-  width: 20%;
+  margin-top: 0px;
+  position: fixed;
   background-color: lightblue;
-  margin-right: 20px;
+  height: 100%;
+  width: 16%;
+  margin-right: 0px;
+}
+
+li {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-decoration: none;
+}
+
+.link {
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
 }

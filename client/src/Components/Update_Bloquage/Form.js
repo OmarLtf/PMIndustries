@@ -45,7 +45,7 @@ function Form() {
 
   return (
     <div className="containor">
-      <form>
+      <form >
         <div className="formCell">
           <div className="field">
             <label>Lot</label>

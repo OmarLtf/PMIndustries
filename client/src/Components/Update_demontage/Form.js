@@ -41,14 +41,12 @@ function Form() {
 
   return (
     <div className="containor">
-      <form>
+      <form className="form">
         <div className="formCell">
           <div className="field">
             <label>Lot</label>
             <input type="text" onChange={(e) => setLot(e.target.value)} />
           </div>
-        </div>
-        <div className="formCell">
           <div className="field">
             <label>Ordre de Fabrication</label>
             <input
@@ -57,6 +55,8 @@ function Form() {
               onChange={(e) => setOF(e.target.value)}
             />
           </div>
+        </div>
+        <div className="formCell">
           <div className="field">
             <label>Qunatité demante</label>
             <input
@@ -65,11 +65,10 @@ function Form() {
               onChange={(e) => setCd(e.target.value)}
             />
           </div>
-        </div>
-
-        <div className="field">
-          <label>Commentaire</label>
-          <input type="text" />
+          <div className="field">
+            <label>Commentaire</label>
+            <input type="text" />
+          </div>
         </div>
 
         <button className="buttonUpdate" onClick={updateRow}>

@@ -2,12 +2,20 @@ body {
   font-family: sans-serif;
   background-color: #eaf0f7;
 }
-form {
+
+.interfaceContainer {
+  margin-left: 18%;
+  display: flex;
+  flex-direction: column;
+}
+.form {
   background-color: white;
   border-radius: 10px;
   margin: 20px;
-  width: 78%;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.047);
+  height: 250px;
+  width: 100%;
+  margin-left: 0px;
 }
 
 input {
@@ -25,7 +33,7 @@ select {
   border-radius: 3px;
   border: 1px solid #d8dce1;
   height: 30px;
-  width: 500px;
+  width: 510px;
   font-size: 13px;
   margin: 5px;
 }
