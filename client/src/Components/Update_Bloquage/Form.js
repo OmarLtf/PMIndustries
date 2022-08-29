@@ -9,6 +9,7 @@ function Form() {
   const [Qt_tr, setQtTr] = useState("");
   const [Qt_lib, setQtLib] = useState("");
   const [data, setData] = useState([]);
+  
   const getUsers = () => {
     Axios.get("http://localhost:3001/data/new_inter").then((res) => {
       setData(res.data);

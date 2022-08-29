@@ -36,6 +36,8 @@ app.get("/data", (req, res) => {
   });
 });
 
+//////////////////////Login/////////////////////////////////////
+
 app.post("/login", (req, res) => {
   const name = req.body.userName;
   const password = req.body.password;
@@ -46,9 +48,10 @@ app.post("/login", (req, res) => {
       console.log(result);
       if (result.length > 0) {
         console.log("success login!");
+         res.send("yes yes yes yes yes yes yes yes yes yes yes yes");
       } else {
         console.log("failur login!");
-        res.send({ message: "wrong login information! " });
+          res.send("no no no no no no no no no no no no no no no no no");
       }
     }
   );

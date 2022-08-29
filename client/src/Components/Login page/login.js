@@ -2,6 +2,7 @@ import { useState } from "react";
 import Logo from "./PMI-Logo - Copie.png";
 import Axios from "axios";
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [name, setName] = useState("");
@@ -35,6 +36,7 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button onClick={login}>Connexion</button>
+        <h1>{test}</h1>
       </form>
     </div>
   );
