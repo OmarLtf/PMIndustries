@@ -9,7 +9,7 @@ function Form() {
   const [Qt_tr, setQtTr] = useState("");
   const [Qt_lib, setQtLib] = useState("");
   const [data, setData] = useState([]);
-  
+
   const getUsers = () => {
     Axios.get("http://localhost:3001/data/new_inter").then((res) => {
       setData(res.data);
@@ -46,48 +46,50 @@ function Form() {
 
   return (
     <div className="containor">
-      <form >
-        <div className="formCell">
-          <div className="field">
-            <label>Lot</label>
-            <input type="text" onChange={(e) => setLot(e.target.value)} />
+      <form className="formInter">
+        <div>
+          <div className="formCell">
+            <div className="field">
+              <label>Lot</label>
+              <input type="text" onChange={(e) => setLot(e.target.value)} />
+            </div>
           </div>
+          <div className="formCell">
+            <div className="field">
+              <label>Ordre de Fabrication</label>
+              <input
+                type="text"
+                required
+                onChange={(e) => setOF(e.target.value)}
+              />
+            </div>
+            <div className="field">
+              <label>Qunatité Transféré</label>
+              <input
+                type="text"
+                required
+                onChange={(e) => setQtTr(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="formCell">
+            <div className="field">
+              <label>Quantité Liberé</label>
+              <input
+                type="text"
+                required
+                onChange={(e) => setQtLib(e.target.value)}
+              />
+            </div>
+            <div className="field">
+              <label>Commentaire</label>
+              <input type="text" />
+            </div>
+          </div>
+          <button className="buttonUpdate" onClick={updateRow}>
+            Update
+          </button>
         </div>
-        <div className="formCell">
-          <div className="field">
-            <label>Ordre de Fabrication</label>
-            <input
-              type="text"
-              required
-              onChange={(e) => setOF(e.target.value)}
-            />
-          </div>
-          <div className="field">
-            <label>Qunatité Transféré</label>
-            <input
-              type="text"
-              required
-              onChange={(e) => setQtTr(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="formCell">
-          <div className="field">
-            <label>Quantité Liberé</label>
-            <input
-              type="text"
-              required
-              onChange={(e) => setQtLib(e.target.value)}
-            />
-          </div>
-          <div className="field">
-            <label>Commentaire</label>
-            <input type="text" />
-          </div>
-        </div>
-        <button className="buttonUpdate" onClick={updateRow}>
-          Update
-        </button>
       </form>
       <GetTable data={filter(data)} />
     </div>

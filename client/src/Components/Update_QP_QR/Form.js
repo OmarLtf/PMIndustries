@@ -37,7 +37,7 @@ function Form() {
 
     if (filteredData.length === 1) {
       if (CR !== null && CP !== null) {
-        if (parseInt(CR) + parseInt(CP) > parseInt(filteredData[0].D_montage )) {
+        if (parseInt(CR) + parseInt(CP) > parseInt(filteredData[0].D_montage)) {
           window.alert("Somme Supérieur à quantité démonté !");
         } else {
           Axios.post("http://localhost:3001/updaterow", {
@@ -52,7 +52,7 @@ function Form() {
 
   return (
     <div className="containor">
-      <form>
+      <form className="formInter">
         <div className="formCell">
           <div className="field">
             <label>Lot</label>
@@ -100,4 +100,4 @@ function Form() {
   );
 }
 
-export default Form; 
+export default Form;

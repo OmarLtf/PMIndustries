@@ -28,7 +28,7 @@ function Form() {
   };
   return (
     <div className="interfaceContainer">
-      <form className="form">
+      <form className="formInter">
         <div className="formCell">
           <div>
             <label>Matricule</label>
