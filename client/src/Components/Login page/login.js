@@ -2,21 +2,31 @@ import { useState } from "react";
 import Logo from "./PMI-Logo - Copie.png";
 import Axios from "axios";
 import "./login.css";
-import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [nav, setNav] = useState(false);
 
   const login = (e) => {
-    Axios.post("http://localhost:3001/login", {
-      userName: name,
-      password: password,
-    }).then((response) => {
+    Axios.get(
+      `http://localhost:3001/login/${name}-${password}`
+      //  {
+      //   userName: name,
+      //   password: password,
+      // }
+    ).then((response) => {
       console.log(response);
+      if (response.data === "yes") {
+        setNav(true);
+      } else {
+        setNav(false);
+      }
     });
   };
-
+  // if (nav) {
+  //   return <Navigate to="/utilisateur"></Navigate>;
+  // } else {
   return (
     <div>
       <img src={Logo} alt="logo" />
@@ -36,10 +46,10 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button onClick={login}>Connexion</button>
-        <h1>{test}</h1>
       </form>
     </div>
   );
 }
+// }
 
 export default Login;

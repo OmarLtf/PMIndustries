@@ -1,18 +1,13 @@
-import Form from "./Components/Form/Form";
-import Navbar from "./Components/NavBar/nav";
-import "./index.css";
-import GetTable from "./Components/table/GetTable";
+import Interface from "./Components/NavBar/nav";
+import { BrowserRouter, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <div className="addUser">
-        <Navbar />
-        <div></div>
-        <Form />
-      </div>
-      <GetTable />
-    </div>
+    <BrowserRouter>
+      <Route path="/interface">
+        <Interface></Interface>
+      </Route>
+    </BrowserRouter>
   );
 }
 

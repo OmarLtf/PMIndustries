@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
+import Nav from "./Components/NavBar/nav";
 
-// import Test from "./Components/NavBar/nav";
-import Login from "./Components/Login page/login";
+import App from "./App";
 
-ReactDOM.render(<Login />, document.getElementById("root"));
+ReactDOM.render(<Nav></Nav>, document.getElementById("root"));

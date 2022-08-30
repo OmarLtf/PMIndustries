@@ -38,9 +38,11 @@ app.get("/data", (req, res) => {
 
 //////////////////////Login/////////////////////////////////////
 
-app.post("/login", (req, res) => {
-  const name = req.body.userName;
-  const password = req.body.password;
+app.get("/login/:username-:password", (req, res) => {
+  // const name = req.body.userName;
+  // const password = req.body.password;
+  const name = req.params.username;
+  const password = req.params.password;
   db.query(
     "SELECT * FROM users WHERE userName = ? AND password = ?",
     [name, password],
@@ -48,10 +50,10 @@ app.post("/login", (req, res) => {
       console.log(result);
       if (result.length > 0) {
         console.log("success login!");
-         res.send("yes yes yes yes yes yes yes yes yes yes yes yes");
+        res.send("yes");
       } else {
         console.log("failur login!");
-          res.send("no no no no no no no no no no no no no no no no no");
+        res.send("no");
       }
     }
   );
