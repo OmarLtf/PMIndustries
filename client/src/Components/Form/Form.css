@@ -9,6 +9,7 @@ body {
   flex-direction: column;
 }
 .formInter {
+  margin-top: 40px;
   background-color: white;
   border-radius: 10px;
   margin: 20px;

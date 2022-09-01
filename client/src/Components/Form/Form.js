@@ -9,6 +9,7 @@ function Form() {
   const [password, setPassword] = useState("");
 
   const addUser = (e) => {
+    e.preventDefault();
     Axios.post("http://localhost:3001/adduser", {
       userName: name,
       matricule: matricule,
@@ -17,7 +18,7 @@ function Form() {
     }).then((response) => {
       console.log(response);
     });
-    // clearFields();
+    clearFields();
   };
 
   const clearFields = () => {

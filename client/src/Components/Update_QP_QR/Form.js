@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Form.css";
 import Axios from "axios";
 import GetTable from "./GetTable";
+import { GetUser } from "../../Helper/context";
 
 function Form() {
   const [lot, setLot] = useState("");
@@ -9,6 +10,8 @@ function Form() {
   const [CR, setCR] = useState("");
   const [CP, setCP] = useState("");
   const [data, setData] = useState([]);
+  const [com, setCom] = useState("");
+  const { userData, setUserData } = useContext(GetUser);
 
   const updateData = {
     CR: CR,
@@ -44,6 +47,16 @@ function Form() {
             newCR: CR,
             newCP: CP,
             id: filteredData[0].OF,
+            /////traceability///////
+            matricule: userData.matricule,
+            user: userData.name,
+            produit: filteredData[0].Produit,
+            lot: filteredData[0].Lot,
+            ref: filteredData[0].R_f_rence,
+            table: "Préparation",
+            input_prep: CP,
+            input_rebut: CR,
+            comentaire: com,
           });
         }
       }
@@ -80,15 +93,11 @@ function Form() {
         <div className="formCell">
           <div className="field">
             <label>Champ Rebut</label>
-            <input
-              type="text"
-              required
-              onChange={(e) => setCR(e.target.value)}
-            />
+            <input type="text" onChange={(e) => setCR(e.target.value)} />
           </div>
           <div className="field">
             <label>Commentaire</label>
-            <input type="text" />
+            <input type="text" onChange={(e) => setCom(e.target.value)} />
           </div>
         </div>
         <button className="buttonUpdate" onClick={updateRow}>

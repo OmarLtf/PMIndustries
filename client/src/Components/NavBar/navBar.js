@@ -2,13 +2,18 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./nav.css";
 
-const navBar = () => {
+const NavBar = () => {
   return (
     <div>
       <nav className="navBar">
         <ul>
           <li>
-            <NavLink className="link" to="/utilisateur">
+            <NavLink className="link" to="/interface/upload">
+              Upload
+            </NavLink>
+          </li>
+          <li>
+            <NavLink exact className="link" to="/interface/utilisateur">
               Utilisateur
             </NavLink>
           </li>
@@ -48,4 +53,4 @@ const navBar = () => {
   );
 };
 
-export default navBar;
+export default NavBar;

@@ -8,12 +8,16 @@ import Prep from "../Update_QP_QR/Interface";
 import Zinguage from "../Update_Zinguage/Interface";
 import Montage from "../Update_Montage/Interface";
 import Export from "../Update_Export/Interface";
+import Upload from "../Upload_file/upload";
 function navBarTest() {
   return (
     <div>
       <Navbar></Navbar>
       <main>
-        <Route path="/utilisateur">
+        <Route path="/interface/upload">
+          <Upload></Upload>
+        </Route>
+        <Route path="/interface/utilisateur">
           <Users></Users>
         </Route>
         <Route path="/demontage">

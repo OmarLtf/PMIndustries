@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Form.css";
 import Axios from "axios";
 import GetTable from "./GetTable";
+import { GetUser } from "../../Helper/context";
 
 function Form() {
   const [lot, setLot] = useState("");
   const [OF, setOF] = useState("");
   const [cd, setCd] = useState("");
   const [data, setData] = useState([]);
+  const [com, setCom] = useState("");
+
+  const { userData, setUserData } = useContext(GetUser);
   const getUsers = () => {
     Axios.get("http://localhost:3001/data/new_inter").then((res) => {
       setData(res.data);
@@ -34,6 +38,15 @@ function Form() {
         Axios.post("http://localhost:3001/demantage/updaterow", {
           demantage: Qt_demantage,
           id: filteredData[0].OF,
+          /////traceability///////
+          matricule: userData.matricule,
+          user: userData.name,
+          produit: filteredData[0].Produit,
+          lot: filteredData[0].Lot,
+          ref: filteredData[0].R_f_rence,
+          table: "Demantage",
+          input: cd,
+          comentaire: com,
         });
       }
     } else window.alert("Choisir un seul ligne !");
@@ -67,7 +80,7 @@ function Form() {
           </div>
           <div className="field">
             <label>Commentaire</label>
-            <input type="text" />
+            <input type="text" onChange={(e) => setCom(e.target.value)} />
           </div>
         </div>
 

@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Logo from "./PMI-Logo - Copie.png";
 import Axios from "axios";
 import "./login.css";
 import { useHistory } from "react-router-dom";
+import { GetUser, LoginContext } from "../../Helper/context";
 
 function Login() {
+  const { logedIn, setLogedIn } = useContext(LoginContext);
+  const { userData, setUserData } = useContext(GetUser);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
@@ -13,9 +16,15 @@ function Login() {
     e.preventDefault();
     Axios.get(`http://localhost:3001/login/${name}-${password}`).then(
       (response) => {
-        if (response.data === "yes") {
+        if (response.data[0] === "yes") {
+          setLogedIn(true);
+          setUserData({
+            name: response.data[1].userName,
+            matricule: response.data[1].matricule,
+          });
           history.push("/interface");
         } else {
+          setLogedIn(false);
           alert("wrong informations");
         }
       }
