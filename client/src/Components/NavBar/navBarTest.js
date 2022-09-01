@@ -9,6 +9,7 @@ import Zinguage from "../Update_Zinguage/Interface";
 import Montage from "../Update_Montage/Interface";
 import Export from "../Update_Export/Interface";
 import Upload from "../Upload_file/upload";
+import Traceability from "../Traceability Table/Interface";
 function navBarTest() {
   return (
     <div>
@@ -37,6 +38,9 @@ function navBarTest() {
         </Route>
         <Route path="/export">
           <Export></Export>
+        </Route>
+        <Route path="/traceability">
+          <Traceability></Traceability>
         </Route>
       </main>
     </div>

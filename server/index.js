@@ -32,8 +32,17 @@ app.post("/adduser", (req, res) => {
   });
 });
 
+////////////////Get Table////////////////////
 app.get("/data", (req, res) => {
   const sql = "SELECT * FROM users";
+  db.query(sql, (request, result) => {
+    res.send(result);
+  });
+});
+
+////////////////Get tracability table////////////////////
+app.get("/tracData", (req, res) => {
+  const sql = "SELECT * FROM traceability2";
   db.query(sql, (request, result) => {
     res.send(result);
   });

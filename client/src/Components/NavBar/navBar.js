@@ -47,6 +47,11 @@ const NavBar = () => {
               Export
             </NavLink>
           </li>
+          <li>
+            <NavLink className="link" to="/traceability">
+              Tableau de tracabilité
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </div>
