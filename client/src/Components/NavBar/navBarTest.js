@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Route, NavLink } from "react-router-dom";
 import React from "react";
 import Navbar from "./navBar";
 import Bloquage from "../Update_Bloquage/Interface";
@@ -13,7 +13,56 @@ import Traceability from "../Traceability Table/Interface";
 function navBarTest() {
   return (
     <div>
-      <Navbar></Navbar>
+      <nav className="navBar">
+        <ul>
+          <li>
+            <NavLink className="link" to="/interface/upload">
+              Upload
+            </NavLink>
+          </li>
+          <li>
+            <NavLink exact className="link" to="/interface/utilisateur">
+              Utilisateur
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="link" to="/demontage">
+              Demontage
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="link" to="/preparation">
+              Preparation
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="link" to="/bloquage">
+              Bloquage
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="link" to="/zinguage">
+              Zinguage
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="link" to="/montage">
+              Montage
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="link" to="/export">
+              Export
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="link" to="/traceability">
+              Tableau de tracabilité
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
+      {/* <Navbar></Navbar> */}
       <main>
         <Route path="/interface/upload">
           <Upload></Upload>

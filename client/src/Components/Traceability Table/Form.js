@@ -5,8 +5,9 @@ import {
 } from "react-export-table-to-excel";
 import { useEffect, useRef, useState } from "react";
 import Axios from "axios";
+import { Redirect } from "react-router-dom";
 
-function Form() {
+function Form(props) {
   const tableRef = useRef(null);
   const [data, setData] = useState([]);
 
@@ -40,7 +41,9 @@ function Form() {
     filename: "Tableau de tracabilité",
     sheet: "Tableau de tracabilité",
   });
-
+  // if (!props.state) {
+  //   return <Redirect path="/login"></Redirect>;
+  // }
   return (
     <div className="containor">
       <button onClick={onDownload} className="exportButton">

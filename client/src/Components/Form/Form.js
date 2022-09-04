@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Form.css";
 import Axios from "axios";
 import Table from "./GetTable";
-function Form() {
+import { Redirect } from "react-router-dom";
+import { LoginContext } from "../../Helper/context";
+function Form(props) {
   const [matricule, setMatricule] = useState("");
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
+  const { logedIn, setLogedIn } = useContext(LoginContext);
 
   const addUser = (e) => {
     e.preventDefault();
@@ -18,8 +21,12 @@ function Form() {
     }).then((response) => {
       console.log(response);
     });
+    window.location.reload(false);
     clearFields();
   };
+  // useEffect(() => {
+  //   setLogedIn(true);
+  // });
 
   const clearFields = () => {
     setMatricule("");
@@ -27,6 +34,7 @@ function Form() {
     setPassword("");
     setName("");
   };
+
   return (
     <div className="interfaceContainer">
       <form className="formInter">

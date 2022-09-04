@@ -1,8 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import "./nav.css";
 
-const NavBar = () => {
+const NavBar = (props) => {
+  if (!props.state) {
+    return <Redirect to="/login"></Redirect>;
+  }
   return (
     <div>
       <nav className="navBar">

@@ -1,8 +1,32 @@
 body {
   margin: 0px;
 }
-.uploadContainer {
-  float: right;
+.interfaceContainer {
   margin-left: 18%;
-  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonUpload {
+  background-color: #67d69b;
+
+  margin-right: 30px;
+  padding: 10px;
+  border-radius: 5px;
+  border-color: transparent;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  color: white;
+}
+
+.buttonUpload:hover {
+  background-color: #73e2a7;
+  box-shadow: 0px 0px 2px 0.5px #4d7af668;
+  color: white;
+}
+
+.title {
+  font-size: 25px;
+  margin-right: 0px;
+  width: 500px;
 }

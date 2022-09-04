@@ -7,6 +7,10 @@ const cors = require("cors");
 
 const date = new Date();
 const dateString = date.toLocaleString();
+var bodyParser = require("body-parser");
+
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
+app.use(bodyParser.json({ limit: "50mb" }));
 
 app.use(express.json());
 app.use(cors());
@@ -81,7 +85,7 @@ app.delete("/delete/:id", (req, res) => {
 ///////////////// New interface //////////////////////
 
 app.get("/data/new_inter", (req, res) => {
-  const sql = "SELECT * FROM suivi_production_dape_3";
+  const sql = "SELECT * FROM suivi_production_dape_test";
   db.query(sql, (request, result) => {
     res.send(result);
   });
@@ -459,6 +463,65 @@ app.post("/Export/updaterow", (req, res) => {
       console.log("success update export");
     }
   );
+});
+
+//////////////////////Delete Table /////////////////////:
+app.delete("/deleteTable", (req, res) => {
+  const Delete =
+    "DELETE FROM suivi_production_dape_test WHERE suivi_production_dape_test.OF IS NOT NULL;";
+  db.query(Delete, (err, result) => {
+    console.log("deleted succussfully !");
+  });
+});
+
+/////////////////// Insert Excel data into mysql table /////////////////////////
+app.post("/excelUpload", (req, res) => {
+  const sqlTracking =
+    "INSERT INTO suivi_production_dape_test (Pr, suivi_production_dape_test.OF, Lot, Produit, R_f_rence, R_f_rence_Sorea, R_f_rence_EAI, Statut_Of, Flux, Date_De_Commande, Qt_Dd_e, Qt_Re_u, D_montage, Reste_d_monter, Montage, Qt_Rebut, Bloquage, Zingueur, Qt_Export, Encours_Atelier_Brut, Encours_Atelier_Net, Reste_Exporter, Taux_De_Rebut, Observation_Prod, Date_De_Lancement_Of, Date_De_Pr_paration_Of, Date_De_Cl_ture_Of, R_sultat_inventaire, Ecart, Zinguage ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+
+  const excelData = req.body.excelData;
+  console.log("data uploaded ! ");
+
+  excelData.map((item, index) => {
+    db.query(
+      sqlTracking,
+      [
+        item["Pr"],
+        item["OF"],
+        item["Lot"],
+        item["Produit"],
+        item["Référence"],
+        item["Référence Sorea"],
+        item["Référence EAI"],
+        item["Satut Of"],
+        item["Flux"],
+        item["Date De Commande"],
+        item["Qté Ddée"],
+        item["Qté Reçu"],
+        item["Démontage"],
+        item["Reste à démonte"],
+        item["Montage"],
+        item["Qté Rebut"],
+        item["Bloquage"],
+        item["Zingueur"],
+        item["Qté Exporté"],
+        item["Encours Atelier Brut"],
+        item["Encours  Atelier Net"],
+        item["Encours  Atelier"],
+        item["Taux De Rebut"],
+        item["Observation Prod"],
+        item["Date De Lancement Of"],
+        item["Date De Préparation Of"],
+        item["Date De Clôture Of"],
+        item["Résultat inventaire"],
+        item["Ecart"],
+        item["Zinguage"],
+      ],
+      (err, result) => {
+        console.log(index);
+      }
+    );
+  });
 });
 
 app.listen(3001, () => {

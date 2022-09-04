@@ -2,35 +2,37 @@ import { useContext, useState } from "react";
 import Logo from "./PMI-Logo - Copie.png";
 import Axios from "axios";
 import "./login.css";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { GetUser, LoginContext } from "../../Helper/context";
 
-function Login() {
-  const { logedIn, setLogedIn } = useContext(LoginContext);
+function Login(props) {
+  // const { logedIn, setLogedIn } = useContext(LoginContext);
   const { userData, setUserData } = useContext(GetUser);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  // setLogedIn(false);
 
   const login = (e) => {
     e.preventDefault();
     Axios.get(`http://localhost:3001/login/${name}-${password}`).then(
       (response) => {
         if (response.data[0] === "yes") {
-          setLogedIn(true);
+          // setLogedIn(true);
+          window.localStorage.setItem("loggedIn", true);
           setUserData({
             name: response.data[1].userName,
             matricule: response.data[1].matricule,
           });
-          history.push("/interface");
+          history.push("/interface/utilisateur");
+          console.log(response.data);
         } else {
-          setLogedIn(false);
+          // setLogedIn(false);
           alert("wrong informations");
         }
       }
     );
   };
-
   return (
     <div className="body">
       <div className="loginContainer">

@@ -3,8 +3,9 @@ import "./Form.css";
 import Axios from "axios";
 import GetTable from "./GetTable";
 import { GetUser } from "../../Helper/context";
+import { Redirect } from "react-router-dom";
 
-function Form() {
+function Form(props) {
   const [lot, setLot] = useState("");
   const [OF, setOF] = useState("");
   const [Qt_tr, setQtTr] = useState("");
@@ -57,7 +58,9 @@ function Form() {
       }
     } else window.alert("Choisir un seul ligne !");
   };
-
+  // if (!props.state) {
+  //   return <Redirect path="/login"></Redirect>;
+  // }
   return (
     <div className="containor">
       <form className="formInter">

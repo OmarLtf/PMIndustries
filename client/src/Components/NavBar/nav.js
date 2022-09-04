@@ -5,12 +5,12 @@ import Nav from "./navBarTest";
 import "./interface.css";
 
 function nav(props) {
-  if (!props.state) {
-    return <Redirect to="/login"></Redirect>;
-  }
+  // if (!props.state) {
+  //   return <Redirect to="/login"></Redirect>;
+  // }
   return (
     <BrowserRouter>
-      <Redirect to="/interface/utilisateur"></Redirect>
+      {/* <Redirect to="/interface/utilisateur"></Redirect> */}
       <Nav></Nav>
     </BrowserRouter>
   );
