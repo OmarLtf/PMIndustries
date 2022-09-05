@@ -4,8 +4,11 @@ import Axios from "axios";
 import GetTable from "./GetTable";
 import { GetUser } from "../../Helper/context";
 import { Redirect } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 function Form(props) {
+  const notify = () => toast.success("Opération Validée");
+
   const [lot, setLot] = useState("");
   const [OF, setOF] = useState("");
   const [cd, setCd] = useState("");
@@ -35,13 +38,15 @@ function Form(props) {
   const updateRow = () => {
     const filteredData = filter(data);
     if (filteredData.length === 1) {
-      if (cd !== null) {
+      console.log(cd);
+      if (cd) {
         let Qt_demantage = 0;
         if (filteredData[0].D_montage) {
           Qt_demantage = parseInt(cd) + parseInt(filteredData[0].D_montage);
         } else {
           Qt_demantage = parseInt(cd);
         }
+        notify();
         Axios.post("http://localhost:3001/demantage/updaterow", {
           demantage: Qt_demantage,
           id: filteredData[0].OF,
@@ -55,6 +60,8 @@ function Form(props) {
           input: cd,
           comentaire: com,
         });
+      } else {
+        window.alert("champ vide");
       }
     } else window.alert("Choisir un seul ligne !");
   };
@@ -63,6 +70,7 @@ function Form(props) {
   // }
   return (
     <div className="containor">
+      <Toaster />
       <h1 className="title bloquage">Table Démontage</h1>
       <p className="msg">Merci De Remplir Les Champs...😃 </p>
 

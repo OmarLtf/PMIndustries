@@ -3,8 +3,10 @@ import "./Form.css";
 import Axios from "axios";
 import GetTable from "./GetTable";
 import { GetUser } from "../../Helper/context";
+import toast, { Toaster } from "react-hot-toast";
 
 function Form() {
+  const notify = () => toast.success("Opération Validée");
   const [lot, setLot] = useState("");
   const [OF, setOF] = useState("");
   const [montage, setMontage] = useState("");
@@ -83,6 +85,7 @@ function Form() {
             input_montage: montage,
             comentaire: com,
           });
+          notify();
         } else {
           window.alert("valeurs invalides !");
         }
@@ -92,6 +95,7 @@ function Form() {
 
   return (
     <div className="containor">
+      <Toaster />
       <h1 className="title bloquage">Table Montage</h1>
       <p className="msg">Merci De Remplir Les Champs...😃 </p>
       <form className="formInter">

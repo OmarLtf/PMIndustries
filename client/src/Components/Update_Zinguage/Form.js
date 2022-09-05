@@ -4,8 +4,10 @@ import Axios from "axios";
 import GetTable from "./GetTable";
 import { GetUser } from "../../Helper/context";
 import { Redirect } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 function Form(props) {
+  const notify = () => toast.success("Opération Validée");
   const [lot, setLot] = useState("");
   const [OF, setOF] = useState("");
   const [Qt_tr, setQtTr] = useState("");
@@ -60,6 +62,7 @@ function Form(props) {
           parseInt(filteredData[0].Qt_Rebut);
 
         if (zinguage_totale <= qt_prep) {
+          notify();
           Axios.post("http://localhost:3001/zinguage/updaterow", {
             zinguage: zinguage_totale,
             id: filteredData[0].OF,
@@ -87,6 +90,7 @@ function Form(props) {
   }
   return (
     <div className="containor">
+      <Toaster />
       <h1 className="title bloquage">Table Zinguage</h1>
       <p className="msg">Merci De Remplir Les Champs...😃</p>
       <form className="formInter">

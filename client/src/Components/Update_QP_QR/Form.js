@@ -3,8 +3,10 @@ import "./Form.css";
 import Axios from "axios";
 import GetTable from "./GetTable";
 import { GetUser } from "../../Helper/context";
+import toast, { Toaster } from "react-hot-toast";
 
 function Form() {
+  const notify = () => toast.success("Opération Validée");
   const [lot, setLot] = useState("");
   const [OF, setOF] = useState("");
   const [CR, setCR] = useState("");
@@ -87,6 +89,7 @@ function Form() {
             input_rebut: CR,
             comentaire: com,
           });
+          notify();
         }
       }
     } else window.alert("Choisir un seul ligne !");
@@ -94,6 +97,7 @@ function Form() {
 
   return (
     <div className="containor">
+      <Toaster />
       <h1 className="title bloquage">Table Préparation</h1>
       <p className="msg">Merci De Remplir Les Champs...😃 </p>
       <form className="formInter">

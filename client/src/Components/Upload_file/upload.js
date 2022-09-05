@@ -3,7 +3,9 @@ import "./upload.css";
 import * as XLSX from "xlsx";
 import Axios from "axios";
 import { Redirect } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 function Upload(props) {
+  const notify = () => toast.success("Opération Validée");
   const [excelFile, setExcelFile] = useState(null);
   const [excelFileError, setExcelFileError] = useState(null);
 
@@ -34,12 +36,7 @@ function Upload(props) {
       excelData: excelData,
     });
 
-    var delayInMilliseconds = 300; //1 second
-
-    setTimeout(function () {
-      window.alert("Tableau importé avec succées");
-    }, delayInMilliseconds);
-    console.log(excelData);
+    notify();
   };
 
   if (props.role === "Consultant") {
@@ -47,6 +44,7 @@ function Upload(props) {
   }
   return (
     <div className="interfaceContainer">
+      <Toaster />
       <h1 className="title bloquage">Upload Page</h1>
       <div className="form">
         <form className="formInter" autoComplete="off" onSubmit={handleSubmit}>
