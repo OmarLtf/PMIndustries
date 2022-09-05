@@ -2,14 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import "./Form.css";
 import Axios from "axios";
 import Table from "./GetTable";
-import { Redirect } from "react-router-dom";
-import { LoginContext } from "../../Helper/context";
 function Form(props) {
   const [matricule, setMatricule] = useState("");
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
-  const { logedIn, setLogedIn } = useContext(LoginContext);
 
   const addUser = (e) => {
     e.preventDefault();
@@ -37,7 +34,7 @@ function Form(props) {
 
   return (
     <div className="interfaceContainer">
-      <form className="formInter">
+      <form className="formTestTest">
         <div className="formCell">
           <div>
             <label>Matricule</label>

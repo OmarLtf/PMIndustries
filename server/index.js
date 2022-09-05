@@ -2,9 +2,7 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const nodemon = require("nodemon");
-
 const cors = require("cors");
-
 const date = new Date();
 const dateString = date.toLocaleString();
 var bodyParser = require("body-parser");
@@ -85,7 +83,7 @@ app.delete("/delete/:id", (req, res) => {
 ///////////////// New interface //////////////////////
 
 app.get("/data/new_inter", (req, res) => {
-  const sql = "SELECT * FROM suivi_production_dape_test";
+  const sql = "SELECT * FROM suivi_production_dape";
   db.query(sql, (request, result) => {
     res.send(result);
   });
@@ -106,9 +104,10 @@ app.post("/updaterow", (req, res) => {
   const com = req.body.comentaire;
   const input_prep = req.body.input_prep;
   const input_rebut = req.body.input_rebut;
+  console.log(CP);
 
   const sqlInsert =
-    " UPDATE suivi_production_dape_3 SET Qt_Rebut = ?, Qt_prepare = ? WHERE suivi_production_dape_3.OF = ? ;";
+    " UPDATE suivi_production_dape SET Qt_Rebut = ?, Qt_prepare = ? WHERE suivi_production_dape.OF = ? ;";
 
   db.query(sqlInsert, [CR, CP, OF.toString()], (err, result) => {
     console.log("success update update!");
@@ -171,9 +170,10 @@ app.post("/zinguage/updaterow", (req, res) => {
   const inp_transfer = req.body.input_transfer;
   const inp_libere = req.body.input_libere;
   const com = req.body.comentaire;
+  console.log(zinguage);
 
   const sqlInsert =
-    " UPDATE suivi_production_dape_3 SET Zingueur = ? WHERE suivi_production_dape_3.OF = ? ;";
+    " UPDATE suivi_production_dape SET Zingueur = ? WHERE suivi_production_dape.OF = ? ;";
 
   db.query(sqlInsert, [zinguage, OF.toString()], (err, result) => {
     console.log("success update update!");
@@ -225,6 +225,7 @@ app.post("/zinguage/updaterow", (req, res) => {
 app.post("/bloquage/updaterow", (req, res) => {
   const bloquage = req.body.zinguage;
   const OF = req.body.id;
+  const net = req.body.encoursNet;
   ///// traceability //////////
   const matricule = req.body.matricule;
   const user = req.body.user;
@@ -235,14 +236,20 @@ app.post("/bloquage/updaterow", (req, res) => {
   const inp_transfer = req.body.input_transfer;
   const inp_libere = req.body.input_libere;
   const com = req.body.comentaire;
+  console.log("bloaquage bloquage");
+  console.log(bloquage);
 
   const sqlInsert =
-    " UPDATE suivi_production_dape_3 SET Bloquage = ? WHERE suivi_production_dape_3.OF = ? ;";
+    " UPDATE suivi_production_dape SET Encours_Atelier_Net = ?, Bloquage = ? WHERE suivi_production_dape.OF = ? ;";
   const sqlTracking =
     "INSERT INTO traceability2 (Matricule, User, Produit, Lot, traceability2.Of, Reference, traceability2.Table, Type, Commentaire, Qte_Saisi, Date_doperation) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
-  db.query(sqlInsert, [bloquage, OF.toString()], (err, result) => {
-    console.log("success update update!");
-  });
+  db.query(
+    sqlInsert,
+    [net, bloquage.toString(), OF.toString()],
+    (err, result) => {
+      console.log("success update update!");
+    }
+  );
 
   db.query(
     sqlTracking,
@@ -302,11 +309,11 @@ app.post("/montage/updaterow", (req, res) => {
   const input_montage = req.body.input_montage;
   const input_rebut = req.body.input_rebut;
   const sqlInsert =
-    " UPDATE suivi_production_dape_3 SET Montage = ?, Encours_Atelier_Net = ?, Encours_Atelier_Brut = ? WHERE suivi_production_dape_3.OF = ? ;";
+    " UPDATE suivi_production_dape SET Montage = ?, Encours_Atelier_Net = ?, Rbut_montage = ?, Encours_Atelier_Brut = ? WHERE suivi_production_dape.OF = ? ;";
 
   db.query(
     sqlInsert,
-    [montage, encoursBrut, encoursNet, OF.toString()],
+    [montage, encoursNet, input_rebut, encoursBrut, OF.toString()],
     (err, result) => {
       console.log("success update update!");
       console.log(montage);
@@ -333,7 +340,7 @@ app.post("/montage/updaterow", (req, res) => {
       dateString,
     ],
     (err, result) => {
-      console.log("success update export");
+      console.log("success update montage trac");
     }
   );
 
@@ -353,7 +360,7 @@ app.post("/montage/updaterow", (req, res) => {
       dateString,
     ],
     (err, result) => {
-      console.log("success update export");
+      console.log("success update montage trac");
     }
   );
 });
@@ -372,7 +379,7 @@ app.post("/demantage/updaterow", (req, res) => {
   const com = req.body.comentaire;
   const input = req.body.input;
   const sqlInsert =
-    " UPDATE suivi_production_dape_3 SET D_montage= ? WHERE suivi_production_dape_3.OF = ? ;";
+    " UPDATE suivi_production_dape SET D_montage= ? WHERE suivi_production_dape.OF = ? ;";
 
   db.query(sqlInsert, [demantage, OF.toString()], (err, result) => {
     console.log("success update update!");
@@ -406,6 +413,7 @@ app.post("/Export/updaterow", (req, res) => {
   const exporte = req.body.exporte;
   const rebut = req.body.rebut;
   const OF = req.body.id;
+  const net = req.body.encoursNet;
   ///// traceability //////////
   const matricule = req.body.matricule;
   const user = req.body.user;
@@ -416,9 +424,9 @@ app.post("/Export/updaterow", (req, res) => {
   const com = req.body.comentaire;
   const input = req.body.input;
   const sqlInsert =
-    " UPDATE suivi_production_dape_3 SET Qt_Export= ? , Rbut_export = ? WHERE suivi_production_dape_3.OF = ? ;";
+    " UPDATE suivi_production_dape SET Qt_Export= ? , Rbut_export = ?, Encours_Atelier_Net = ? WHERE suivi_production_dape.OF = ? ;";
 
-  db.query(sqlInsert, [exporte, rebut, OF.toString()], (err, result) => {
+  db.query(sqlInsert, [exporte, rebut, net, OF.toString()], (err, result) => {
     console.log("success update update!");
   });
 
@@ -468,7 +476,7 @@ app.post("/Export/updaterow", (req, res) => {
 //////////////////////Delete Table /////////////////////:
 app.delete("/deleteTable", (req, res) => {
   const Delete =
-    "DELETE FROM suivi_production_dape_test WHERE suivi_production_dape_test.OF IS NOT NULL;";
+    "DELETE FROM suivi_production_dape WHERE suivi_production_dape.OF IS NOT NULL;";
   db.query(Delete, (err, result) => {
     console.log("deleted succussfully !");
   });
@@ -477,7 +485,7 @@ app.delete("/deleteTable", (req, res) => {
 /////////////////// Insert Excel data into mysql table /////////////////////////
 app.post("/excelUpload", (req, res) => {
   const sqlTracking =
-    "INSERT INTO suivi_production_dape_test (Pr, suivi_production_dape_test.OF, Lot, Produit, R_f_rence, R_f_rence_Sorea, R_f_rence_EAI, Statut_Of, Flux, Date_De_Commande, Qt_Dd_e, Qt_Re_u, D_montage, Reste_d_monter, Montage, Qt_Rebut, Bloquage, Zingueur, Qt_Export, Encours_Atelier_Brut, Encours_Atelier_Net, Reste_Exporter, Taux_De_Rebut, Observation_Prod, Date_De_Lancement_Of, Date_De_Pr_paration_Of, Date_De_Cl_ture_Of, R_sultat_inventaire, Ecart, Zinguage ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    "INSERT INTO suivi_production_dape (suivi_production_dape.OF, Lot, Produit, R_f_rence, R_f_rence_Sorea, Date_De_Commande, Qt_Dd_e, D_montage, Qt_prepare, Qt_Rebut, Zingueur, Montage, Rbut_montage,   Bloquage,  Qt_Export, Rbut_export , Encours_Atelier_Brut, Encours_Atelier_Net, Observation_Prod) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
   const excelData = req.body.excelData;
   console.log("data uploaded ! ");
@@ -486,36 +494,25 @@ app.post("/excelUpload", (req, res) => {
     db.query(
       sqlTracking,
       [
-        item["Pr"],
         item["OF"],
         item["Lot"],
         item["Produit"],
         item["Référence"],
         item["Référence Sorea"],
-        item["Référence EAI"],
-        item["Satut Of"],
-        item["Flux"],
         item["Date De Commande"],
         item["Qté Ddée"],
-        item["Qté Reçu"],
         item["Démontage"],
-        item["Reste à démonte"],
-        item["Montage"],
-        item["Qté Rebut"],
-        item["Bloquage"],
+        item["Préparation"],
+        item["R.Prép"],
         item["Zingueur"],
+        item["Montage"],
+        item["R.Mont"],
+        item["Bloquage"],
         item["Qté Exporté"],
-        item["Encours Atelier Brut"],
-        item["Encours  Atelier Net"],
-        item["Encours  Atelier"],
-        item["Taux De Rebut"],
+        item["R.Export"],
+        item["E.Brut"],
+        item["E.Net"],
         item["Observation Prod"],
-        item["Date De Lancement Of"],
-        item["Date De Préparation Of"],
-        item["Date De Clôture Of"],
-        item["Résultat inventaire"],
-        item["Ecart"],
-        item["Zinguage"],
       ],
       (err, result) => {
         console.log(index);

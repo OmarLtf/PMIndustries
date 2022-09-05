@@ -16,48 +16,47 @@ import Traceability from "./Components//Traceability Table/Interface";
 import UserLogedIn from "./Helper/context";
 
 function App() {
-  const [userData, setUserData] = useState({});
   const loggedIn = window.localStorage.getItem("loggedIn");
+  var retrievedObject = localStorage.getItem("object");
+  const userData = JSON.parse(retrievedObject);
+  console.log(userData.name);
+  console.log(userData.role);
   return (
     <BrowserRouter>
-      {/* <LoginContext.Provider value={{ logedIn, setLogedIn }}> */}
-      <GetUser.Provider value={{ userData, setUserData }}>
-        <Logout state={loggedIn}></Logout>
-        <Navbar state={loggedIn}></Navbar>
-        <Switch>
-          <Route path="/login">
-            {loggedIn ? <Users></Users> : <Login></Login>}
-          </Route>
-          <Route path="/interface/upload">
-            <Upload></Upload>
-          </Route>
-          <Route path="/interface/utilisateur">
-            <Users></Users>
-          </Route>
-          <Route path="/demontage">
-            <Demontage></Demontage>
-          </Route>
-          <Route path="/preparation">
-            <Prep></Prep>
-          </Route>
-          <Route path="/bloquage">
-            <Bloquage></Bloquage>
-          </Route>
-          <Route path="/zinguage">
-            <Zinguage></Zinguage>
-          </Route>
-          <Route path="/montage">
-            <Montage></Montage>
-          </Route>
-          <Route path="/export">
-            <Export></Export>
-          </Route>
-          <Route path="/traceability">
-            <Traceability></Traceability>
-          </Route>
-        </Switch>
-      </GetUser.Provider>
-      {/* </LoginContext.Provider> */}
+      <Logout state={loggedIn}></Logout>
+      <Navbar state={loggedIn}></Navbar>
+      <Switch>
+        <Route path="/login">
+          {loggedIn ? <Demontage></Demontage> : <Login></Login>}
+        </Route>
+        <Route path="/interface/upload">
+          <Upload role={userData.role}></Upload>
+        </Route>
+        <Route path="/interface/utilisateur">
+          <Users></Users>
+        </Route>
+        <Route path="/demontage">
+          <Demontage></Demontage>
+        </Route>
+        <Route path="/preparation">
+          <Prep></Prep>
+        </Route>
+        <Route path="/bloquage">
+          <Bloquage></Bloquage>
+        </Route>
+        <Route path="/zinguage">
+          <Zinguage></Zinguage>
+        </Route>
+        <Route path="/montage">
+          <Montage></Montage>
+        </Route>
+        <Route path="/export">
+          <Export></Export>
+        </Route>
+        <Route path="/traceability">
+          <Traceability></Traceability>
+        </Route>
+      </Switch>
     </BrowserRouter>
   );
 }

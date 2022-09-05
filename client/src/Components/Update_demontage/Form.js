@@ -12,7 +12,9 @@ function Form(props) {
   const [data, setData] = useState([]);
   const [com, setCom] = useState("");
 
-  const { userData, setUserData } = useContext(GetUser);
+  var retrievedObject = localStorage.getItem("object");
+  const userData = JSON.parse(retrievedObject);
+
   const getUsers = () => {
     Axios.get("http://localhost:3001/data/new_inter").then((res) => {
       setData(res.data);
@@ -32,10 +34,14 @@ function Form(props) {
 
   const updateRow = () => {
     const filteredData = filter(data);
-
     if (filteredData.length === 1) {
       if (cd !== null) {
-        var Qt_demantage = parseInt(cd) + parseInt(filteredData[0].D_montage);
+        let Qt_demantage = 0;
+        if (filteredData[0].D_montage) {
+          Qt_demantage = parseInt(cd) + parseInt(filteredData[0].D_montage);
+        } else {
+          Qt_demantage = parseInt(cd);
+        }
         Axios.post("http://localhost:3001/demantage/updaterow", {
           demantage: Qt_demantage,
           id: filteredData[0].OF,
@@ -74,7 +80,7 @@ function Form(props) {
         </div>
         <div className="formCell">
           <div className="field">
-            <label>Qunatité demante</label>
+            <label>Qunatité démontée</label>
             <input
               type="text"
               required
@@ -91,6 +97,7 @@ function Form(props) {
           Update
         </button>
       </form>
+      {/* <GetTable data={filter(data)} /> */}
       <GetTable data={filter(data)} />
     </div>
   );

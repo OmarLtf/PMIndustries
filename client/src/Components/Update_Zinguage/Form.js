@@ -11,7 +11,8 @@ function Form() {
   const [Qt_lib, setQtLib] = useState("");
   const [data, setData] = useState([]);
   const [com, setCom] = useState("");
-  const { userData, setUserData } = useContext(GetUser);
+  var retrievedObject = localStorage.getItem("object");
+  const userData = JSON.parse(retrievedObject);
   const getUsers = () => {
     Axios.get("http://localhost:3001/data/new_inter").then((res) => {
       setData(res.data);
@@ -35,20 +36,28 @@ function Form() {
     if (filteredData.length === 1) {
       if (Qt_lib !== null && Qt_tr !== null) {
         var Qt_zinguage = parseInt(Qt_tr) - parseInt(Qt_lib);
-        Axios.post("http://localhost:3001/zinguage/updaterow", {
-          zinguage: Qt_zinguage,
-          id: filteredData[0].OF,
-          /////traceability///////
-          matricule: userData.matricule,
-          user: userData.name,
-          produit: filteredData[0].Produit,
-          lot: filteredData[0].Lot,
-          ref: filteredData[0].R_f_rence,
-          table: "Zinguage",
-          input_transfer: Qt_tr,
-          input_libere: Qt_lib,
-          comentaire: com,
-        });
+        var zinguage_totale = Qt_zinguage + parseInt(filteredData[0].Zingueur);
+        var qt_prep =
+          parseInt(filteredData[0].Qt_prepare) -
+          parseInt(filteredData[0].Qt_Rebut);
+        if (zinguage_totale <= qt_prep) {
+          Axios.post("http://localhost:3001/zinguage/updaterow", {
+            zinguage: zinguage_totale,
+            id: filteredData[0].OF,
+            /////traceability///////
+            matricule: userData.matricule,
+            user: userData.name,
+            produit: filteredData[0].Produit,
+            lot: filteredData[0].Lot,
+            ref: filteredData[0].R_f_rence,
+            table: "Zinguage",
+            input_transfer: Qt_tr,
+            input_libere: Qt_lib,
+            comentaire: com,
+          });
+        } else {
+          window.alert("Zinguage superieur à quantité préparé");
+        }
       }
     } else window.alert("Choisir un seul ligne !");
   };

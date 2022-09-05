@@ -15,16 +15,16 @@ function GetTable(props) {
     { heading: "Démontage", value: "D_montage" },
     { heading: "Qt Préparé", value: "Qt_prepare" },
     { heading: "R.pre", value: "Qt_Rebut" },
-    { heading: "Bloquage", value: "Bloquage" },
     { heading: "Zingueur", value: "Zingueur" },
     { heading: "Montage", value: "Montage" },
-    { heading: "R.Montage", value: "Rebut_montage" },
+    { heading: "Bloquage", value: "Bloquage" },
+    { heading: "R.Montage", value: "Rbut_montage" },
     { heading: "Qt Exporté", value: "Qt_Export" },
     { heading: "R.Export", value: "Rbut_export" },
-    { heading: "Encours Atelier Brut", value: "Encours_Atelier_Brut" },
-    { heading: "Encours Atelier Net", value: "Encours_Atelier_Net" },
-    { heading: "Rest à Exporter", value: "Rest_Exporter" },
-    { heading: "Taux de Rebut", value: "Taux_De_Rebut" },
+    { heading: "E.Brut", value: "Encours_Atelier_Brut" },
+    { heading: "E.Net", value: "Encours_Atelier_Net" },
+    { heading: "Observation Prod", value: "Observation_Prod" },
+    { heading: "Taux de Rebut", value: "Taux_de_Rebut" },
   ];
   return <Table data={props.data} column={column} />;
 }

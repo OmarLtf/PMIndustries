@@ -13,7 +13,8 @@ function Form(props) {
   const [data, setData] = useState([]);
   const [com, setCom] = useState("");
 
-  const { userData, setUserData } = useContext(GetUser);
+  var retrievedObject = localStorage.getItem("object");
+  const userData = JSON.parse(retrievedObject);
 
   const getUsers = () => {
     Axios.get("http://localhost:3001/data/new_inter").then((res) => {
@@ -37,24 +38,42 @@ function Form(props) {
 
     if (filteredData.length === 1) {
       if (Qt_lib !== null && Qt_tr !== null) {
-        var Qt_zinguage =
-          parseInt(Qt_tr) -
-          parseInt(Qt_lib) +
-          parseInt(filteredData[0].Bloquage);
-        Axios.post("http://localhost:3001/bloquage/updaterow", {
-          zinguage: Qt_zinguage,
-          id: filteredData[0].OF,
-          /////traceability///////
-          matricule: userData.matricule,
-          user: userData.name,
-          produit: filteredData[0].Produit,
-          lot: filteredData[0].Lot,
-          ref: filteredData[0].R_f_rence,
-          table: "Bloquage",
-          input_transfer: Qt_tr,
-          input_libere: Qt_lib,
-          comentaire: com,
-        });
+        var Qt_zinguage = parseInt(Qt_tr) - parseInt(Qt_lib);
+        var zinguage_totale = Qt_zinguage + parseInt(filteredData[0].Bloquage);
+        var qt_mont =
+          parseInt(filteredData[0].Montage) -
+          parseInt(filteredData[0].Rbut_montage);
+
+        let som_reb =
+          parseInt(filteredData[0].Qt_Rebut) +
+          parseInt(filteredData[0].Rebut_montage) +
+          parseInt(filteredData[0].Rebut_export);
+
+        let encoursNet =
+          parseInt(filteredData[0].D_montage) -
+          parseInt(filteredData[0].Zingueur) -
+          parseInt(filteredData[0].Bloquage) -
+          som_reb;
+
+        if (zinguage_totale <= qt_mont) {
+          Axios.post("http://localhost:3001/bloquage/updaterow", {
+            zinguage: Qt_zinguage,
+            id: filteredData[0].OF,
+            encoursNet: encoursNet,
+            /////traceability///////
+            matricule: userData.matricule,
+            user: userData.name,
+            produit: filteredData[0].Produit,
+            lot: filteredData[0].Lot,
+            ref: filteredData[0].R_f_rence,
+            table: "Bloquage",
+            input_transfer: Qt_tr,
+            input_libere: Qt_lib,
+            comentaire: com,
+          });
+        } else {
+          window.alert("Bloquage supérieur a quantité préparé !");
+        }
       }
     } else window.alert("Choisir un seul ligne !");
   };
@@ -92,7 +111,11 @@ function Form(props) {
           <div className="formCell">
             <div className="field">
               <label>Quantité Liberé</label>
-              <input type="text" onChange={(e) => setQtLib(e.target.value)} />
+              <input
+                type="text"
+                required
+                onChange={(e) => setQtLib(e.target.value)}
+              />
             </div>
             <div className="field">
               <label>Commentaire</label>

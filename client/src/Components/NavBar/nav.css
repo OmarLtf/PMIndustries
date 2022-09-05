@@ -5,7 +5,7 @@
   font-size: 18px;
   margin-top: 0px;
   position: fixed;
-  background-color: white;
+  background: linear-gradient(180deg, #027daa 27%, #0097ce 58%);
   height: 100%;
   width: 16%;
   margin-right: 0px;
@@ -13,16 +13,25 @@
 }
 
 li {
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   text-decoration: none;
   margin: 5px;
-  margin-left: 0px;
+  margin-right: 0px;
+  margin-left: -40px;
+  text-align: center;
+}
+
+li:hover {
+  background-color: #056b90;
 }
 
 .link {
+  color: white;
   text-decoration: none;
   width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 ul {

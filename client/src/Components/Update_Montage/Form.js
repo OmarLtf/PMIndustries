@@ -12,7 +12,8 @@ function Form() {
   const [rebut, setRebut] = useState("");
   const [com, setCom] = useState("");
 
-  const { userData, setUserData } = useContext(GetUser);
+  var retrievedObject = localStorage.getItem("object");
+  const userData = JSON.parse(retrievedObject);
 
   const getUsers = () => {
     Axios.get("http://localhost:3001/data/new_inter").then((res) => {
@@ -36,30 +37,51 @@ function Form() {
 
     if (filteredData.length === 1) {
       if (montage !== null && rebut !== null) {
-        const calcMontage = parseInt(montage) - parseInt(rebut);
-        const finalMontage =
-          parseInt(filteredData[0].Montage) + parseInt(calcMontage);
-        const encoursBrut = parseInt(filteredData[0].Qt_prepare) - finalMontage;
-        const encoursNet =
-          parseInt(filteredData[0].Qt_prepare) -
-          parseInt(filteredData[0].Zingueur) -
-          parseInt(filteredData[0].Bloquage);
-        Axios.post("http://localhost:3001/montage/updaterow", {
-          montage: finalMontage,
-          encoursBrut: encoursBrut,
-          encoursNet: encoursNet,
-          id: filteredData[0].OF,
-          /////traceability///////
-          matricule: userData.matricule,
-          user: userData.name,
-          produit: filteredData[0].Produit,
-          lot: filteredData[0].Lot,
-          ref: filteredData[0].R_f_rence,
-          table: "Montage",
-          input_rebut: rebut,
-          input_montage: montage,
-          comentaire: com,
-        });
+        let qt_prep = parseInt(filteredData[0].Qt_prepare);
+        let reb_prep = parseInt(filteredData[0].Qt_Rebut);
+        let zing = parseInt(filteredData[0].Zingueur);
+        let test = qt_prep - reb_prep - zing;
+        let qt_mont = parseInt(montage) + parseInt(filteredData[0].Montage);
+        console.log("quantité montage");
+
+        if (qt_mont <= test && test !== 0) {
+          let som_reb =
+            parseInt(filteredData[0].Qt_Rebut) +
+            parseInt(filteredData[0].Rebut_montage) +
+            parseInt(filteredData[0].Rebut_export);
+
+          let finalMontage =
+            parseInt(filteredData[0].Montage) +
+            parseInt(montage) -
+            parseInt(rebut);
+
+          let encoursBrut = parseInt(filteredData[0].D_montage) - finalMontage;
+
+          let encoursNet =
+            parseInt(filteredData[0].D_montage) -
+            parseInt(filteredData[0].Zingueur) -
+            parseInt(filteredData[0].Bloquage) -
+            som_reb;
+
+          Axios.post("http://localhost:3001/montage/updaterow", {
+            montage: qt_mont,
+            encoursBrut: encoursBrut,
+            encoursNet: encoursNet,
+            id: filteredData[0].OF,
+            /////traceability///////
+            matricule: userData.matricule,
+            user: userData.name,
+            produit: filteredData[0].Produit,
+            lot: filteredData[0].Lot,
+            ref: filteredData[0].R_f_rence,
+            table: "Montage",
+            input_rebut: rebut,
+            input_montage: montage,
+            comentaire: com,
+          });
+        } else {
+          window.alert("valeurs invalides !");
+        }
       }
     } else window.alert("Choisir un seul ligne !");
   };
@@ -94,7 +116,11 @@ function Form() {
         <div className="formCell">
           <div className="field">
             <label>Champ Rebut</label>
-            <input type="text" onChange={(e) => setRebut(e.target.value)} />
+            <input
+              type="text"
+              required
+              onChange={(e) => setRebut(e.target.value)}
+            />
           </div>
           <div className="field">
             <label>Commentaire</label>

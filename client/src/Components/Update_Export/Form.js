@@ -12,7 +12,9 @@ function Form(props) {
   const [exporte, setExport] = useState("");
   const [data, setData] = useState([]);
   const [com, setCom] = useState("");
-  const { userData, setUserData } = useContext(GetUser);
+
+  var retrievedObject = localStorage.getItem("object");
+  const userData = JSON.parse(retrievedObject);
 
   const getUsers = () => {
     Axios.get("http://localhost:3001/data/new_inter").then((res) => {
@@ -35,18 +37,34 @@ function Form(props) {
     const filteredData = filter(data);
 
     if (filteredData.length === 1) {
-      if (rebut !== null && exporte !== null) {
-        var Qt_exporte =
-          parseInt(exporte) -
-          parseInt(rebut) +
-          parseInt(filteredData[0].Qt_Export);
-        const qt_rebut =
-          parseInt(rebut) + parseInt(filteredData[0].Rbut_export);
+      let Qt_exporte = parseInt(exporte) + parseInt(filteredData[0].Qt_Export);
+
+      let qt_rebut = parseInt(rebut) + parseInt(filteredData[0].Rbut_export);
+
+      let qt_montage =
+        parseInt(filteredData[0].Montage) -
+        parseInt(filteredData[0].Rbut_montage);
+
+      let qt_bloquage = parseInt(filteredData[0].Bloquage);
+      let test = qt_montage - qt_bloquage;
+
+      let som_reb =
+        parseInt(filteredData[0].Qt_Rebut) +
+        parseInt(filteredData[0].Rebut_montage) +
+        parseInt(filteredData[0].Rebut_export);
+
+      let encoursNet =
+        parseInt(filteredData[0].D_montage) -
+        parseInt(filteredData[0].Zingueur) -
+        parseInt(filteredData[0].Bloquage) -
+        som_reb;
+
+      if (Qt_exporte <= test && test !== 0) {
         Axios.post("http://localhost:3001/Export/updaterow", {
           exporte: Qt_exporte,
           rebut: qt_rebut,
           id: filteredData[0].OF,
-
+          encoursNet: encoursNet,
           /////traceability///////
           matricule: userData.matricule,
           user: userData.name,
@@ -57,12 +75,11 @@ function Form(props) {
           input: exporte,
           comentaire: com,
         });
+      } else {
+        window.alert("Valeurs Invalides !");
       }
-    } else window.alert("Choisir un seul ligne !");
+    } else window.alert("Choisir une seule ligne !");
   };
-  if (!props.state) {
-    return <Redirect path="/login"></Redirect>;
-  }
   return (
     <div className="containor">
       <form className="formInter">
@@ -93,7 +110,11 @@ function Form(props) {
         <div className="formCell">
           <div className="field">
             <label>Quantité Rebuté</label>
-            <input type="text" onChange={(e) => setRebut(e.target.value)} />
+            <input
+              type="text"
+              required
+              onChange={(e) => setRebut(e.target.value)}
+            />
           </div>
           <div className="field">
             <label>Commentaire</label>

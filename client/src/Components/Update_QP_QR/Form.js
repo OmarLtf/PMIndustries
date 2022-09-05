@@ -11,7 +11,9 @@ function Form() {
   const [CP, setCP] = useState("");
   const [data, setData] = useState([]);
   const [com, setCom] = useState("");
-  const { userData, setUserData } = useContext(GetUser);
+
+  var retrievedObject = localStorage.getItem("object");
+  const userData = JSON.parse(retrievedObject);
 
   const updateData = {
     CR: CR,
@@ -37,15 +39,24 @@ function Form() {
 
   const updateRow = () => {
     const filteredData = filter(data);
-
+    let qt_prep;
+    let reb;
     if (filteredData.length === 1) {
       if (CR !== null && CP !== null) {
-        if (parseInt(CR) + parseInt(CP) > parseInt(filteredData[0].D_montage)) {
-          window.alert("Somme Supérieur à quantité démonté !");
+        if (parseInt(CP) > parseInt(filteredData[0].D_montage)) {
+          window.alert("quantité préparé Supérieur à quantité démonté !");
         } else {
+          if (filteredData[0].Qt_prepare && filteredData[0].Qt_Rebut) {
+            qt_prep = parseInt(CP) + parseInt(filteredData[0].Qt_prepare);
+            reb = parseInt(CR) + parseInt(filteredData[0].Qt_Rebut);
+          } else {
+            qt_prep = parseInt(CP);
+            reb = parseInt(CR);
+          }
+          console.log(qt_prep);
           Axios.post("http://localhost:3001/updaterow", {
-            newCR: CR,
-            newCP: CP,
+            newCR: reb,
+            newCP: qt_prep,
             id: filteredData[0].OF,
             /////traceability///////
             matricule: userData.matricule,
@@ -93,7 +104,11 @@ function Form() {
         <div className="formCell">
           <div className="field">
             <label>Champ Rebut</label>
-            <input type="text" onChange={(e) => setCR(e.target.value)} />
+            <input
+              type="text"
+              required
+              onChange={(e) => setCR(e.target.value)}
+            />
           </div>
           <div className="field">
             <label>Commentaire</label>

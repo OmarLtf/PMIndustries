@@ -57,13 +57,12 @@ tr:nth-child(even):hover {
 .update {
   padding: 5px;
   /* margin: 0px 10px 5px 0px; */
-  width: 40px;
+  /* width: 40px; */
   color: white;
   border-radius: 10px;
-  font-weight: normal;
+  font-weight: bold;
   border: none;
-  color: black;
-  background-color: rgb(208, 208, 208);
+  background-color: rgb(10, 187, 187);
 }
 .delete {
   margin-right: 5px;
@@ -78,6 +77,21 @@ tr:nth-child(even):hover {
 
 thead {
   font-size: 14px;
+}
+
+.deleteButt {
+  padding: 8px;
+  /* margin: 0px 10px 5px 0px; */
+  /* width: 40px; */
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+  background-color: rgb(10, 154, 187);
+}
+
+.deleteButt:hover{
+  background-color: rgb(15, 182, 188);
 }
 
 /* Responsive */

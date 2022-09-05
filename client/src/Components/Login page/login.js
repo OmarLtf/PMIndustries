@@ -18,14 +18,15 @@ function Login(props) {
     Axios.get(`http://localhost:3001/login/${name}-${password}`).then(
       (response) => {
         if (response.data[0] === "yes") {
-          // setLogedIn(true);
           window.localStorage.setItem("loggedIn", true);
-          setUserData({
+          let object = {
             name: response.data[1].userName,
             matricule: response.data[1].matricule,
-          });
-          history.push("/interface/utilisateur");
-          console.log(response.data);
+            role: response.data[1].role,
+          };
+          localStorage.setItem("object", JSON.stringify(object));
+          history.push("/demontage");
+          window.location.reload(false);
         } else {
           // setLogedIn(false);
           alert("wrong informations");
@@ -37,6 +38,7 @@ function Login(props) {
     <div className="body">
       <div className="loginContainer">
         <img className="imgLogin" src={Logo} alt="logo" />
+        <h1 className="gpao">G.P.A.O</h1>
         <form className="formLogin">
           <label className="labelLogin">Nom d'utilisateur</label>
           <input

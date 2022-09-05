@@ -39,16 +39,14 @@ const TableRow = ({ item, column }) => (
     })}
     <td>
       <button
-        className="delete"
+        className="deleteButt"
         onClick={() => {
           Delete(item.id);
           window.location.reload();
         }}
       >
-        <i className="fa-solid fa-trash"></i>
-      </button>
-      <button className="update">
-        <i className="fa-solid fa-unlock"></i>
+        {/* <i className="fa-solid fa-trash"></i> */}
+        Delete User
       </button>
     </td>
   </tr>

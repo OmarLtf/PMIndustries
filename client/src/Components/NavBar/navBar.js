@@ -1,64 +1,131 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, Redirect } from "react-router-dom";
+import { GetUser } from "../../Helper/context";
 import "./nav.css";
 
 const NavBar = (props) => {
+  var retrievedObject = localStorage.getItem("object");
+  const userData = JSON.parse(retrievedObject);
+
   if (!props.state) {
     return <Redirect to="/login"></Redirect>;
   }
-  return (
-    <div>
-      <nav className="navBar">
-        <ul>
-          <li>
+  if (userData.role === "Administrateur") {
+    return (
+      <div>
+        <nav className="navBar">
+          <ul>
             <NavLink className="link" to="/interface/upload">
-              Upload
+              <li>Upload</li>
             </NavLink>
-          </li>
-          <li>
+
             <NavLink exact className="link" to="/interface/utilisateur">
-              Utilisateur
+              <li>Table des Utilisateurs</li>
             </NavLink>
-          </li>
-          <li>
+
             <NavLink className="link" to="/demontage">
-              Demontage
+              <li>Table Démontage</li>
             </NavLink>
-          </li>
-          <li>
+
             <NavLink className="link" to="/preparation">
-              Preparation
+              <li>Table Préparation</li>
             </NavLink>
-          </li>
-          <li>
-            <NavLink className="link" to="/bloquage">
-              Bloquage
-            </NavLink>
-          </li>
-          <li>
+
             <NavLink className="link" to="/zinguage">
-              Zinguage
+              <li>Table Zinguage</li>
             </NavLink>
-          </li>
-          <li>
+
             <NavLink className="link" to="/montage">
-              Montage
+              <li>Table Montage</li>
             </NavLink>
-          </li>
-          <li>
+
+            <NavLink className="link" to="/bloquage">
+              <li>Table Bloquage</li>
+            </NavLink>
+
             <NavLink className="link" to="/export">
-              Export
+              <li>Table Export</li>
             </NavLink>
-          </li>
-          <li>
+
             <NavLink className="link" to="/traceability">
-              Tableau de tracabilité
+              <li>Table de Tracabilité</li>
             </NavLink>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  );
+          </ul>
+        </nav>
+      </div>
+    );
+  } else if (
+    userData.role === "Chef production" ||
+    userData.role === "Chef ilot"
+  ) {
+    return (
+      <div>
+        <nav className="navBar">
+          <ul>
+            <NavLink className="link" to="/interface/upload">
+              <li>Upload</li>
+            </NavLink>
+
+            <NavLink className="link" to="/demontage">
+              <li>Table Démontage</li>
+            </NavLink>
+
+            <NavLink className="link" to="/preparation">
+              <li>Table Préparation</li>
+            </NavLink>
+
+            <NavLink className="link" to="/zinguage">
+              <li>Table Zinguage</li>
+            </NavLink>
+
+            <NavLink className="link" to="/montage">
+              <li>Table Montage</li>
+            </NavLink>
+
+            <NavLink className="link" to="/bloquage">
+              <li>Table Bloquage</li>
+            </NavLink>
+
+            <NavLink className="link" to="/export">
+              <li>Table Export</li>
+            </NavLink>
+
+            <NavLink className="link" to="/traceability">
+              <li>Table de Tracabilité</li>
+            </NavLink>
+          </ul>
+        </nav>
+      </div>
+    );
+  } else if (userData.role === "Consultant") {
+    return (
+      <div>
+        <nav className="navBar">
+          <ul>
+            <NavLink activeClassName="active" className="link" to="/demontage">
+              <li>Table Démontage</li>
+            </NavLink>
+
+            <NavLink
+              activeClassName="active"
+              className="link"
+              to="/preparation"
+            >
+              <li>Table Préparation</li>
+            </NavLink>
+
+            <NavLink activeClassName="active" className="link" to="/montage">
+              <li>Table Montage</li>
+            </NavLink>
+
+            <NavLink activeClassName="active" className="link" to="/export">
+              <li>Table Export</li>
+            </NavLink>
+          </ul>
+        </nav>
+      </div>
+    );
+  }
 };
 
 export default NavBar;

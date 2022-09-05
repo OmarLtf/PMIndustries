@@ -1,53 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./upload.css";
 import * as XLSX from "xlsx";
-import GetTable from "./GetTable";
 import Axios from "axios";
-function Upload() {
-  // on change states
+import { Redirect } from "react-router-dom";
+function Upload(props) {
   const [excelFile, setExcelFile] = useState(null);
   const [excelFileError, setExcelFileError] = useState(null);
 
-  // submit
   const [excelData, setExcelData] = useState(null);
-  // it will contain array of objects
-
-  // handle File
-
-  // const handleFile = (e) => {
-  //   let selectedFile = e.target.files[0];
-  //   if (selectedFile) {
-  //     let reader = new FileReader();
-  //     reader.readAsArrayBuffer(selectedFile);
-  //     reader.onload = (e) => {
-  //       setExcelFileError(null);
-  //       setExcelFile(e.target.result);
-  //     };
-  //   } else {
-  //     console.log("plz select your file");
-  //   }
-  // };
-
-  // // submit function
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("exel file");
-  //   console.log(excelFile);
-  //   if (excelFile !== null) {
-  //     const workbook = XLSX.read(excelFile, { type: "buffer" });
-  //     const worksheetName = workbook.SheetNames[0];
-  //     const worksheet = workbook.Sheets[worksheetName];
-  //     const data = XLSX.utils.sheet_to_json(worksheet);
-  //     setExcelData(data);
-  //     if (excelData) {
-
-  //     console.log("exel data")
-  //     console.log(excelData)
-  //   } else {
-  //     setExcelData(null);
-  //   }
-  // };
-
   const handleFile = (e) => {
     e.preventDefault();
     if (e.target.files) {
@@ -60,20 +20,30 @@ function Upload() {
         const json = XLSX.utils.sheet_to_json(worksheet);
         console.log(json);
         setExcelData(json);
+        console.log(json.length);
       };
       reader.readAsArrayBuffer(e.target.files[0]);
     }
   };
 
-  const handleSubmit = () => {
-    console.log(excelData);
+  const handleSubmit = (e) => {
+    e.preventDefault();
     Axios.delete("http://localhost:3001/deleteTable");
 
     Axios.post("http://localhost:3001/excelUpload", {
       excelData: excelData,
     });
+
+    var delayInMilliseconds = 300; //1 second
+
+    setTimeout(function () {
+      window.alert("Tableau importé avec succées");
+    }, delayInMilliseconds);
   };
 
+  if (props.role === "Consultant") {
+    return <Redirect to="/demontage"></Redirect>;
+  }
   return (
     <div className="interfaceContainer">
       <div className="form">
@@ -88,14 +58,8 @@ function Upload() {
             onChange={handleFile}
             required
           ></input>
-          {excelFileError && (
-            <div className="text-danger" style={{ marginTop: 5 + "px" }}>
-              {excelFileError}
-            </div>
-          )}
           <button className="buttonUpload">Submit</button>
         </form>
-        {/* {excelData ? <GetTable data={excelData} /> : <h1>No data</h1>} */}
       </div>
     </div>
   );
