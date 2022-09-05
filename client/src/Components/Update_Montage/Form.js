@@ -40,28 +40,32 @@ function Form() {
         let qt_prep = parseInt(filteredData[0].Qt_prepare);
         let reb_prep = parseInt(filteredData[0].Qt_Rebut);
         let zing = parseInt(filteredData[0].Zingueur);
-        let test = qt_prep - reb_prep - zing;
+        let bloquage = parseInt(filteredData[0].Bloquage);
+        let test = qt_prep - reb_prep - zing - bloquage;
         let qt_mont = parseInt(montage) + parseInt(filteredData[0].Montage);
         console.log("quantité montage");
 
         if (qt_mont <= test && test !== 0) {
           let som_reb =
             parseInt(filteredData[0].Qt_Rebut) +
-            parseInt(filteredData[0].Rebut_montage) +
-            parseInt(filteredData[0].Rebut_export);
+            parseInt(filteredData[0].Rbut_montage) +
+            parseInt(filteredData[0].Rbut_export);
 
           let finalMontage =
             parseInt(filteredData[0].Montage) +
             parseInt(montage) -
             parseInt(rebut);
 
-          let encoursBrut = parseInt(filteredData[0].D_montage) - finalMontage;
+          let encoursBrut =
+            parseInt(filteredData[0].D_montage) -
+            parseInt(filteredData[0].Montage) -
+            parseInt(montage) -
+            som_reb;
 
           let encoursNet =
-            parseInt(filteredData[0].D_montage) -
+            encoursBrut -
             parseInt(filteredData[0].Zingueur) -
-            parseInt(filteredData[0].Bloquage) -
-            som_reb;
+            parseInt(filteredData[0].Bloquage);
 
           Axios.post("http://localhost:3001/montage/updaterow", {
             montage: qt_mont,
@@ -88,16 +92,18 @@ function Form() {
 
   return (
     <div className="containor">
+      <h1 className="title bloquage">Table Montage</h1>
+      <p className="msg">Merci De Remplir Les Champs...😃 </p>
       <form className="formInter">
         <div className="formCell">
           <div className="field">
-            <label>Lot</label>
+            <label>Lot :</label>
             <input type="text" onChange={(e) => setLot(e.target.value)} />
           </div>
         </div>
         <div className="formCell">
           <div className="field">
-            <label>Ordre de Fabrication</label>
+            <label>Ordre de Fabrication :</label>
             <input
               type="text"
               required
@@ -105,7 +111,7 @@ function Form() {
             />
           </div>
           <div className="field">
-            <label>Quantité monté</label>
+            <label>Quantité monté :</label>
             <input
               type="text"
               required
@@ -115,7 +121,7 @@ function Form() {
         </div>
         <div className="formCell">
           <div className="field">
-            <label>Champ Rebut</label>
+            <label>Champ Rebut :</label>
             <input
               type="text"
               required
@@ -123,7 +129,7 @@ function Form() {
             />
           </div>
           <div className="field">
-            <label>Commentaire</label>
+            <label>Commentaire :</label>
             <input type="text" onChange={(e) => setCom(e.target.value)} />
           </div>
         </div>

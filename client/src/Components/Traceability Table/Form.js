@@ -41,11 +41,12 @@ function Form(props) {
     filename: "Tableau de tracabilité",
     sheet: "Tableau de tracabilité",
   });
-  // if (!props.state) {
-  //   return <Redirect path="/login"></Redirect>;
-  // }
+  if (props.state === "Consultant") {
+    return <Redirect path="/demontage"></Redirect>;
+  }
   return (
     <div className="containor">
+      <h1 className="title bloquage">Table Zinguage</h1>
       <button onClick={onDownload} className="exportButton">
         {" "}
         Exporter fichier excel

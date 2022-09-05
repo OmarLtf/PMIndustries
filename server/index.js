@@ -94,6 +94,8 @@ app.post("/updaterow", (req, res) => {
   const CR = req.body.newCR;
   const CP = req.body.newCP;
   const OF = req.body.id;
+  const net = req.body.encoursNet;
+  const brut = req.body.encoursBrut;
   ///// traceability //////////
   const matricule = req.body.matricule;
   const user = req.body.user;
@@ -107,9 +109,9 @@ app.post("/updaterow", (req, res) => {
   console.log(CP);
 
   const sqlInsert =
-    " UPDATE suivi_production_dape SET Qt_Rebut = ?, Qt_prepare = ? WHERE suivi_production_dape.OF = ? ;";
+    " UPDATE suivi_production_dape SET Encours_Atelier_Brut = ?, Encours_Atelier_Net = ?, Qt_Rebut = ?, Qt_prepare = ? WHERE suivi_production_dape.OF = ? ;";
 
-  db.query(sqlInsert, [CR, CP, OF.toString()], (err, result) => {
+  db.query(sqlInsert, [brut, net, CR, CP, OF.toString()], (err, result) => {
     console.log("success update update!");
   });
 
@@ -160,6 +162,8 @@ app.post("/updaterow", (req, res) => {
 app.post("/zinguage/updaterow", (req, res) => {
   const zinguage = req.body.zinguage;
   const OF = req.body.id;
+  const net = req.body.encoursNet;
+  const brut = req.body.encoursBrut;
   ///// traceability //////////
   const matricule = req.body.matricule;
   const user = req.body.user;
@@ -173,9 +177,9 @@ app.post("/zinguage/updaterow", (req, res) => {
   console.log(zinguage);
 
   const sqlInsert =
-    " UPDATE suivi_production_dape SET Zingueur = ? WHERE suivi_production_dape.OF = ? ;";
+    " UPDATE suivi_production_dape SET Encours_Atelier_Brut = ?, Encours_Atelier_Net = ?, Zingueur = ? WHERE suivi_production_dape.OF = ? ;";
 
-  db.query(sqlInsert, [zinguage, OF.toString()], (err, result) => {
+  db.query(sqlInsert, [brut, net, zinguage, OF.toString()], (err, result) => {
     console.log("success update update!");
   });
   const sqlTracking =
@@ -226,6 +230,7 @@ app.post("/bloquage/updaterow", (req, res) => {
   const bloquage = req.body.zinguage;
   const OF = req.body.id;
   const net = req.body.encoursNet;
+  const brut = req.body.encoursBrut;
   ///// traceability //////////
   const matricule = req.body.matricule;
   const user = req.body.user;
@@ -240,12 +245,12 @@ app.post("/bloquage/updaterow", (req, res) => {
   console.log(bloquage);
 
   const sqlInsert =
-    " UPDATE suivi_production_dape SET Encours_Atelier_Net = ?, Bloquage = ? WHERE suivi_production_dape.OF = ? ;";
+    " UPDATE suivi_production_dape SET Encours_Atelier_Brut = ?, Encours_Atelier_Net = ?, Bloquage = ? WHERE suivi_production_dape.OF = ? ;";
   const sqlTracking =
     "INSERT INTO traceability2 (Matricule, User, Produit, Lot, traceability2.Of, Reference, traceability2.Table, Type, Commentaire, Qte_Saisi, Date_doperation) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
   db.query(
     sqlInsert,
-    [net, bloquage.toString(), OF.toString()],
+    [brut, net, bloquage.toString(), OF.toString()],
     (err, result) => {
       console.log("success update update!");
     }
@@ -414,6 +419,7 @@ app.post("/Export/updaterow", (req, res) => {
   const rebut = req.body.rebut;
   const OF = req.body.id;
   const net = req.body.encoursNet;
+  const brut = req.body.encoursBrut;
   ///// traceability //////////
   const matricule = req.body.matricule;
   const user = req.body.user;
@@ -424,11 +430,15 @@ app.post("/Export/updaterow", (req, res) => {
   const com = req.body.comentaire;
   const input = req.body.input;
   const sqlInsert =
-    " UPDATE suivi_production_dape SET Qt_Export= ? , Rbut_export = ?, Encours_Atelier_Net = ? WHERE suivi_production_dape.OF = ? ;";
+    " UPDATE suivi_production_dape SET Encours_Atelier_Brut = ?, Qt_Export= ? , Rbut_export = ?, Encours_Atelier_Net = ? WHERE suivi_production_dape.OF = ? ;";
 
-  db.query(sqlInsert, [exporte, rebut, net, OF.toString()], (err, result) => {
-    console.log("success update update!");
-  });
+  db.query(
+    sqlInsert,
+    [brut, exporte, rebut, net, OF.toString()],
+    (err, result) => {
+      console.log("success update update!");
+    }
+  );
 
   const sqlTracking =
     "INSERT INTO traceability2 (Matricule, User, Produit, Lot, traceability2.Of, Reference, traceability2.Table, Type, Commentaire, Qte_Saisi, Date_doperation) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
@@ -485,7 +495,7 @@ app.delete("/deleteTable", (req, res) => {
 /////////////////// Insert Excel data into mysql table /////////////////////////
 app.post("/excelUpload", (req, res) => {
   const sqlTracking =
-    "INSERT INTO suivi_production_dape (suivi_production_dape.OF, Lot, Produit, R_f_rence, R_f_rence_Sorea, Date_De_Commande, Qt_Dd_e, D_montage, Qt_prepare, Qt_Rebut, Zingueur, Montage, Rbut_montage,   Bloquage,  Qt_Export, Rbut_export , Encours_Atelier_Brut, Encours_Atelier_Net, Observation_Prod) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    "INSERT INTO suivi_production_dape (suivi_production_dape.OF, Lot, Produit, R_f_rence, R_f_rence_Sorea, Date_De_Commande, Qt_Dd_e, D_montage, Qt_prepare, Qt_Rebut, Zingueur, Montage, Rbut_montage, Bloquage,  Qt_Export, Rbut_export , Encours_Atelier_Brut, Encours_Atelier_Net, Observation_Prod) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
   const excelData = req.body.excelData;
   console.log("data uploaded ! ");

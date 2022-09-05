@@ -39,6 +39,7 @@ function Upload(props) {
     setTimeout(function () {
       window.alert("Tableau importé avec succées");
     }, delayInMilliseconds);
+    console.log(excelData);
   };
 
   if (props.role === "Consultant") {
@@ -46,6 +47,7 @@ function Upload(props) {
   }
   return (
     <div className="interfaceContainer">
+      <h1 className="title bloquage">Upload Page</h1>
       <div className="form">
         <form className="formInter" autoComplete="off" onSubmit={handleSubmit}>
           <label>

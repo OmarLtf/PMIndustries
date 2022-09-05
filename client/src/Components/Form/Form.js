@@ -34,10 +34,11 @@ function Form(props) {
 
   return (
     <div className="interfaceContainer">
-      <form className="formTestTest">
+      <h1 className="title bloquage">Table Utilisateurs</h1>
+      <form className="formInter">
         <div className="formCell">
           <div>
-            <label>Matricule</label>
+            <label>Matricule :</label>
             <input
               type="text"
               required
@@ -46,7 +47,7 @@ function Form(props) {
             />
           </div>
           <div>
-            <label>Nom Complet</label>
+            <label>Nom Complet :</label>
             <input
               type="text"
               required
@@ -57,7 +58,7 @@ function Form(props) {
         </div>
         <div className="formCell">
           <div>
-            <label>Role</label>
+            <label>Role :</label>
             <select value={role} onChange={(e) => setRole(e.target.value)}>
               <option>Choisir une role</option>
               <option>Administrateur</option>
@@ -67,7 +68,7 @@ function Form(props) {
             </select>
           </div>
           <div>
-            <label>Mot de pass</label>
+            <label>Mot de pass :</label>
             <input
               type="password"
               required

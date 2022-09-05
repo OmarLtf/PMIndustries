@@ -3,8 +3,9 @@ import "./Form.css";
 import Axios from "axios";
 import GetTable from "./GetTable";
 import { GetUser } from "../../Helper/context";
+import { Redirect } from "react-router-dom";
 
-function Form() {
+function Form(props) {
   const [lot, setLot] = useState("");
   const [OF, setOF] = useState("");
   const [Qt_tr, setQtTr] = useState("");
@@ -37,13 +38,33 @@ function Form() {
       if (Qt_lib !== null && Qt_tr !== null) {
         var Qt_zinguage = parseInt(Qt_tr) - parseInt(Qt_lib);
         var zinguage_totale = Qt_zinguage + parseInt(filteredData[0].Zingueur);
+        var zinguageBrut = parseInt(Qt_tr) + parseInt(filteredData[0].Zingueur);
         var qt_prep =
           parseInt(filteredData[0].Qt_prepare) -
           parseInt(filteredData[0].Qt_Rebut);
+
+        let som_reb =
+          parseInt(filteredData[0].Qt_Rebut) +
+          parseInt(filteredData[0].Rbut_montage) +
+          parseInt(filteredData[0].Rbut_export);
+
+        let encoursNet =
+          parseInt(filteredData[0].D_montage) -
+          zinguage_totale -
+          parseInt(filteredData[0].Bloquage) -
+          som_reb;
+
+        let encoursBrut =
+          parseInt(filteredData[0].D_montage) -
+          parseInt(filteredData[0].Montage) -
+          parseInt(filteredData[0].Qt_Rebut);
+
         if (zinguage_totale <= qt_prep) {
           Axios.post("http://localhost:3001/zinguage/updaterow", {
             zinguage: zinguage_totale,
             id: filteredData[0].OF,
+            encoursNet: encoursNet,
+            encoursBrut: encoursBrut,
             /////traceability///////
             matricule: userData.matricule,
             user: userData.name,
@@ -61,19 +82,23 @@ function Form() {
       }
     } else window.alert("Choisir un seul ligne !");
   };
-
+  if (props.role === "Consultant") {
+    return <Redirect to="/demontage"></Redirect>;
+  }
   return (
     <div className="containor">
+      <h1 className="title bloquage">Table Zinguage</h1>
+      <p className="msg">Merci De Remplir Les Champs...😃</p>
       <form className="formInter">
         <div className="formCell">
           <div className="field">
-            <label>Lot</label>
+            <label>Lot :</label>
             <input type="text" onChange={(e) => setLot(e.target.value)} />
           </div>
         </div>
         <div className="formCell">
           <div className="field">
-            <label>Ordre de Fabrication</label>
+            <label>Ordre de Fabrication :</label>
             <input
               type="text"
               required
@@ -81,7 +106,7 @@ function Form() {
             />
           </div>
           <div className="field">
-            <label>Qunatité Transféré</label>
+            <label>Qunatité Transféré :</label>
             <input
               type="text"
               required
@@ -91,7 +116,7 @@ function Form() {
         </div>
         <div className="formCell">
           <div className="field">
-            <label>Quantité Liberé</label>
+            <label>Quantité Liberé :</label>
             <input
               type="text"
               required
@@ -99,7 +124,7 @@ function Form() {
             />
           </div>
           <div className="field">
-            <label>Commentaire</label>
+            <label>Commentaire :</label>
             <input type="text" onChange={(e) => setCom(e.target.value)} />
           </div>
         </div>

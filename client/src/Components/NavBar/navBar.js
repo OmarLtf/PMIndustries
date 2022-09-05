@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { NavLink, Redirect } from "react-router-dom";
 import { GetUser } from "../../Helper/context";
 import "./nav.css";
+import Logo from "./PMI-Logo - Copie.png";
 
 const NavBar = (props) => {
   var retrievedObject = localStorage.getItem("object");
@@ -14,6 +15,7 @@ const NavBar = (props) => {
     return (
       <div>
         <nav className="navBar">
+          <img className="imgNav" src={Logo} alt="logo" />
           <ul>
             <NavLink className="link" to="/interface/upload">
               <li>Upload</li>
@@ -61,6 +63,7 @@ const NavBar = (props) => {
     return (
       <div>
         <nav className="navBar">
+          <img className="imgNav" src={Logo} alt="logo" />
           <ul>
             <NavLink className="link" to="/interface/upload">
               <li>Upload</li>
@@ -101,6 +104,7 @@ const NavBar = (props) => {
     return (
       <div>
         <nav className="navBar">
+          <img className="imgNav" src={Logo} alt="logo" />
           <ul>
             <NavLink activeClassName="active" className="link" to="/demontage">
               <li>Table Démontage</li>

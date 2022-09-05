@@ -26,6 +26,7 @@ body {
 }
 
 .title {
+  margin-top: 50px;
   font-size: 25px;
   margin-right: 0px;
   width: 500px;

@@ -41,25 +41,28 @@ function Form(props) {
         var Qt_zinguage = parseInt(Qt_tr) - parseInt(Qt_lib);
         var zinguage_totale = Qt_zinguage + parseInt(filteredData[0].Bloquage);
         var qt_mont =
-          parseInt(filteredData[0].Montage) -
-          parseInt(filteredData[0].Rbut_montage);
+          parseInt(filteredData[0].Qt_prepare) -
+          parseInt(filteredData[0].Qt_Rebut) -
+          parseInt(filteredData[0].Zingueur);
 
         let som_reb =
           parseInt(filteredData[0].Qt_Rebut) +
-          parseInt(filteredData[0].Rebut_montage) +
-          parseInt(filteredData[0].Rebut_export);
+          parseInt(filteredData[0].Rbut_montage);
+
+        let encoursBrut =
+          parseInt(filteredData[0].D_montage) -
+          parseInt(filteredData[0].Montage) -
+          som_reb;
 
         let encoursNet =
-          parseInt(filteredData[0].D_montage) -
-          parseInt(filteredData[0].Zingueur) -
-          parseInt(filteredData[0].Bloquage) -
-          som_reb;
+          encoursBrut - parseInt(filteredData[0].Zingueur) - zinguage_totale;
 
         if (zinguage_totale <= qt_mont) {
           Axios.post("http://localhost:3001/bloquage/updaterow", {
             zinguage: Qt_zinguage,
             id: filteredData[0].OF,
             encoursNet: encoursNet,
+            encoursBrut: encoursBrut,
             /////traceability///////
             matricule: userData.matricule,
             user: userData.name,
@@ -72,27 +75,30 @@ function Form(props) {
             comentaire: com,
           });
         } else {
-          window.alert("Bloquage supérieur a quantité préparé !");
+          window.alert("Bloquage supérieur a quantité monté !");
         }
       }
     } else window.alert("Choisir un seul ligne !");
   };
-  // if (!props.state) {
-  //   return <Redirect path="/login"></Redirect>;
-  // }
+  if (props.role === "Consultant") {
+    return <Redirect to="/demontage"></Redirect>;
+  }
   return (
     <div className="containor">
+      <h1 className="title bloquage">Table Bloquage</h1>
+      <p className="msg">Merci De Remplir Les Champs...😃 </p>
+
       <form className="formInter">
         <div>
           <div className="formCell">
             <div className="field">
-              <label>Lot</label>
+              <label>Lot :</label>
               <input type="text" onChange={(e) => setLot(e.target.value)} />
             </div>
           </div>
           <div className="formCell">
             <div className="field">
-              <label>Ordre de Fabrication</label>
+              <label>Ordre de Fabrication :</label>
               <input
                 type="text"
                 required
@@ -100,7 +106,7 @@ function Form(props) {
               />
             </div>
             <div className="field">
-              <label>Qunatité Transféré</label>
+              <label>Qunatité Transféré :</label>
               <input
                 type="text"
                 required
@@ -110,7 +116,7 @@ function Form(props) {
           </div>
           <div className="formCell">
             <div className="field">
-              <label>Quantité Liberé</label>
+              <label>Quantité Liberé :</label>
               <input
                 type="text"
                 required
@@ -118,7 +124,7 @@ function Form(props) {
               />
             </div>
             <div className="field">
-              <label>Commentaire</label>
+              <label>Commentaire :</label>
               <input type="text" onChange={(e) => setCom(e.target.value)} />
             </div>
           </div>

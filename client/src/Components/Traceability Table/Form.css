@@ -16,7 +16,7 @@ input {
   border-radius: 3px;
   border: 1px solid #d8dce1;
   height: 25px;
-  width: 500px;
+  width: 300px;
   font-size: 13px;
   margin: 10px;
   margin-top: 3px;
@@ -82,4 +82,8 @@ label {
 
 .exportButton:hover {
   background-color: #2aa6c5;
+}
+
+.title {
+  margin-top: 50px;
 }

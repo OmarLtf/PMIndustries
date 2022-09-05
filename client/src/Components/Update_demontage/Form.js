@@ -63,14 +63,17 @@ function Form(props) {
   // }
   return (
     <div className="containor">
+      <h1 className="title bloquage">Table Démontage</h1>
+      <p className="msg">Merci De Remplir Les Champs...😃 </p>
+
       <form className="formInter">
         <div className="formCell">
           <div className="field">
-            <label>Lot</label>
+            <label>Lot :</label>
             <input type="text" onChange={(e) => setLot(e.target.value)} />
           </div>
           <div className="field">
-            <label>Ordre de Fabrication</label>
+            <label>Ordre de Fabrication :</label>
             <input
               type="text"
               required
@@ -80,7 +83,7 @@ function Form(props) {
         </div>
         <div className="formCell">
           <div className="field">
-            <label>Qunatité démontée</label>
+            <label>Qunatité démontée :</label>
             <input
               type="text"
               required
@@ -88,7 +91,7 @@ function Form(props) {
             />
           </div>
           <div className="field">
-            <label>Commentaire</label>
+            <label>Commentaire :</label>
             <input type="text" onChange={(e) => setCom(e.target.value)} />
           </div>
         </div>

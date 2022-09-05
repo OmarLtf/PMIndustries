@@ -77,6 +77,7 @@ tr:nth-child(even):hover {
 
 thead {
   font-size: 14px;
+
 }
 
 .deleteButt {
@@ -90,7 +91,7 @@ thead {
   background-color: rgb(10, 154, 187);
 }
 
-.deleteButt:hover{
+.deleteButt:hover {
   background-color: rgb(15, 182, 188);
 }
 

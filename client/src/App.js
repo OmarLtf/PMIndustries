@@ -33,7 +33,7 @@ function App() {
           <Upload role={userData.role}></Upload>
         </Route>
         <Route path="/interface/utilisateur">
-          <Users></Users>
+          <Users role={userData.role}></Users>
         </Route>
         <Route path="/demontage">
           <Demontage></Demontage>
@@ -42,10 +42,10 @@ function App() {
           <Prep></Prep>
         </Route>
         <Route path="/bloquage">
-          <Bloquage></Bloquage>
+          <Bloquage role={userData.role}></Bloquage>
         </Route>
         <Route path="/zinguage">
-          <Zinguage></Zinguage>
+          <Zinguage role={userData.role}></Zinguage>
         </Route>
         <Route path="/montage">
           <Montage></Montage>
@@ -54,7 +54,7 @@ function App() {
           <Export></Export>
         </Route>
         <Route path="/traceability">
-          <Traceability></Traceability>
+          <Traceability role={userData.role}></Traceability>
         </Route>
       </Switch>
     </BrowserRouter>

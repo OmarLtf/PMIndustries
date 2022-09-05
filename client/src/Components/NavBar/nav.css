@@ -10,6 +10,7 @@
   width: 16%;
   margin-right: 0px;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  align-items: center;
 }
 
 li {
@@ -36,4 +37,13 @@ li:hover {
 
 ul {
   list-style-type: none;
+}
+
+.imgNav {
+  margin-top: 5px;
+  width: 100px;
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 60px;
+  margin-bottom: 50px;
 }

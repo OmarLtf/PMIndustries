@@ -46,17 +46,22 @@ function Form(props) {
         parseInt(filteredData[0].Rbut_montage);
 
       let qt_bloquage = parseInt(filteredData[0].Bloquage);
-      let test = qt_montage - qt_bloquage;
+      let test = qt_montage;
 
       let som_reb =
         parseInt(filteredData[0].Qt_Rebut) +
-        parseInt(filteredData[0].Rebut_montage) +
-        parseInt(filteredData[0].Rebut_export);
+        parseInt(filteredData[0].Rbut_montage) +
+        qt_rebut;
 
       let encoursNet =
         parseInt(filteredData[0].D_montage) -
         parseInt(filteredData[0].Zingueur) -
         parseInt(filteredData[0].Bloquage) -
+        som_reb;
+
+      let encoursBrut =
+        parseInt(filteredData[0].D_montage) -
+        parseInt(filteredData[0].Montage) -
         som_reb;
 
       if (Qt_exporte <= test && test !== 0) {
@@ -65,6 +70,7 @@ function Form(props) {
           rebut: qt_rebut,
           id: filteredData[0].OF,
           encoursNet: encoursNet,
+          encoursBrut: encoursBrut,
           /////traceability///////
           matricule: userData.matricule,
           user: userData.name,
@@ -82,16 +88,18 @@ function Form(props) {
   };
   return (
     <div className="containor">
+      <h1 className="title bloquage">Table Export</h1>
+      <p className="msg">Merci De Remplir Les Champs...😃 </p>
       <form className="formInter">
         <div className="formCell">
           <div className="field">
-            <label>Lot</label>
+            <label>Lot :</label>
             <input type="text" onChange={(e) => setLot(e.target.value)} />
           </div>
         </div>
         <div className="formCell">
           <div className="field">
-            <label>Ordre de Fabrication</label>
+            <label>Ordre de Fabrication :</label>
             <input
               type="text"
               required
@@ -99,7 +107,7 @@ function Form(props) {
             />
           </div>
           <div className="field">
-            <label>Qunatité Exporté</label>
+            <label>Qunatité Exporté :</label>
             <input
               type="text"
               required
@@ -109,7 +117,7 @@ function Form(props) {
         </div>
         <div className="formCell">
           <div className="field">
-            <label>Quantité Rebuté</label>
+            <label>Quantité Rebuté :</label>
             <input
               type="text"
               required
@@ -117,7 +125,7 @@ function Form(props) {
             />
           </div>
           <div className="field">
-            <label>Commentaire</label>
+            <label>Commentaire :</label>
             <input type="text" onChange={(e) => setCom(e.target.value)} />
           </div>
         </div>
