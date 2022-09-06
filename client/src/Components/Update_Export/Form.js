@@ -43,6 +43,12 @@ function Form(props) {
 
       let qt_rebut = parseInt(rebut) + parseInt(filteredData[0].Rbut_export);
 
+      let Taux_reb =
+        ((parseInt(filteredData[0].Qt_Rebut) +
+          parseInt(filteredData[0].Rbut_montage) +
+          qt_rebut) /
+          parseInt(filteredData[0].D_montage)) *
+        100;
       let qt_montage =
         parseInt(filteredData[0].Montage) -
         parseInt(filteredData[0].Rbut_montage);
@@ -73,6 +79,7 @@ function Form(props) {
           id: filteredData[0].OF,
           encoursNet: encoursNet,
           encoursBrut: encoursBrut,
+          Taux_reb: Taux_reb,
           /////traceability///////
           matricule: userData.matricule,
           user: userData.name,

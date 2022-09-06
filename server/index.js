@@ -96,6 +96,7 @@ app.post("/updaterow", (req, res) => {
   const OF = req.body.id;
   const net = req.body.encoursNet;
   const brut = req.body.encoursBrut;
+  const Taux_reb = req.body.Taux_reb;
   ///// traceability //////////
   const matricule = req.body.matricule;
   const user = req.body.user;
@@ -109,11 +110,15 @@ app.post("/updaterow", (req, res) => {
   console.log(CP);
 
   const sqlInsert =
-    " UPDATE suivi_production_dape SET Encours_Atelier_Brut = ?, Encours_Atelier_Net = ?, Qt_Rebut = ?, Qt_prepare = ? WHERE suivi_production_dape.OF = ? ;";
+    " UPDATE suivi_production_dape SET Taux_de_Rebut = ?, Encours_Atelier_Brut = ?, Encours_Atelier_Net = ?, Qt_Rebut = ?, Qt_prepare = ? WHERE suivi_production_dape.OF = ? ;";
 
-  db.query(sqlInsert, [brut, net, CR, CP, OF.toString()], (err, result) => {
-    console.log("success update update!");
-  });
+  db.query(
+    sqlInsert,
+    [Taux_reb.toFixed(2).toString() + "%", brut, net, CR, CP, OF.toString()],
+    (err, result) => {
+      console.log("success update update!");
+    }
+  );
 
   const sqlTracking =
     "INSERT INTO traceability2 (Matricule, User, Produit, Lot, traceability2.Of, Reference, traceability2.Table, Type, Commentaire, Qte_Saisi, Date_doperation) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
@@ -303,6 +308,7 @@ app.post("/montage/updaterow", (req, res) => {
   const encoursBrut = req.body.encoursBrut;
   const encoursNet = req.body.encoursNet;
   const OF = req.body.id;
+  const Taux_reb = req.body.Taux_reb;
   ///// traceability //////////
   const matricule = req.body.matricule;
   const user = req.body.user;
@@ -314,11 +320,18 @@ app.post("/montage/updaterow", (req, res) => {
   const input_montage = req.body.input_montage;
   const input_rebut = req.body.input_rebut;
   const sqlInsert =
-    " UPDATE suivi_production_dape SET Montage = ?, Encours_Atelier_Net = ?, Rbut_montage = ?, Encours_Atelier_Brut = ? WHERE suivi_production_dape.OF = ? ;";
+    " UPDATE suivi_production_dape SET Taux_de_Rebut = ?, Montage = ?, Encours_Atelier_Net = ?, Rbut_montage = ?, Encours_Atelier_Brut = ? WHERE suivi_production_dape.OF = ? ;";
 
   db.query(
     sqlInsert,
-    [montage, encoursNet, input_rebut, encoursBrut, OF.toString()],
+    [
+      Taux_reb.toFixed(2).toString() + "%",
+      montage,
+      encoursNet,
+      input_rebut,
+      encoursBrut,
+      OF.toString(),
+    ],
     (err, result) => {
       console.log("success update update!");
       console.log(montage);
@@ -420,6 +433,7 @@ app.post("/Export/updaterow", (req, res) => {
   const OF = req.body.id;
   const net = req.body.encoursNet;
   const brut = req.body.encoursBrut;
+  const Taux_reb = req.body.Taux_reb;
   ///// traceability //////////
   const matricule = req.body.matricule;
   const user = req.body.user;
@@ -430,11 +444,18 @@ app.post("/Export/updaterow", (req, res) => {
   const com = req.body.comentaire;
   const input = req.body.input;
   const sqlInsert =
-    " UPDATE suivi_production_dape SET Encours_Atelier_Brut = ?, Qt_Export= ? , Rbut_export = ?, Encours_Atelier_Net = ? WHERE suivi_production_dape.OF = ? ;";
+    " UPDATE suivi_production_dape SET Taux_de_Rebut = ? , Encours_Atelier_Brut = ?, Qt_Export= ? , Rbut_export = ?, Encours_Atelier_Net = ? WHERE suivi_production_dape.OF = ? ;";
 
   db.query(
     sqlInsert,
-    [brut, exporte, rebut, net, OF.toString()],
+    [
+      Taux_reb.toFixed(2).toString() + "%",
+      brut,
+      exporte,
+      rebut,
+      net,
+      OF.toString(),
+    ],
     (err, result) => {
       console.log("success update update!");
     }

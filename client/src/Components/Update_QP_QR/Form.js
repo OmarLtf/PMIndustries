@@ -57,6 +57,13 @@ function Form() {
           }
           console.log(qt_prep);
 
+          let Taux_reb =
+            ((reb +
+              parseInt(filteredData[0].Rbut_montage) +
+              parseInt(filteredData[0].Rbut_export)) /
+              parseInt(filteredData[0].D_montage)) *
+            100;
+
           let som_reb =
             reb +
             parseInt(filteredData[0].Rbut_montage) +
@@ -78,6 +85,7 @@ function Form() {
             id: filteredData[0].OF,
             encoursNet: encoursNet,
             encoursBrut: encoursBrut,
+            Taux_reb: Taux_reb,
             /////traceability///////
             matricule: userData.matricule,
             user: userData.name,

@@ -47,6 +47,14 @@ function Form() {
         let qt_mont = parseInt(montage) + parseInt(filteredData[0].Montage);
         console.log("quantité montage");
 
+        let Taux_reb =
+          ((parseInt(filteredData[0].Qt_Rebut) +
+            parseInt(filteredData[0].Rbut_montage) +
+            parseInt(rebut) +
+            parseInt(filteredData[0].Rbut_export)) /
+            parseInt(filteredData[0].D_montage)) *
+          100;
+
         if (qt_mont <= test && test !== 0) {
           let som_reb =
             parseInt(filteredData[0].Qt_Rebut) +
@@ -74,6 +82,7 @@ function Form() {
             encoursBrut: encoursBrut,
             encoursNet: encoursNet,
             id: filteredData[0].OF,
+            Taux_reb: Taux_reb,
             /////traceability///////
             matricule: userData.matricule,
             user: userData.name,

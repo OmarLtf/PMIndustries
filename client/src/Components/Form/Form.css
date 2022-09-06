@@ -91,3 +91,78 @@ label {
 .title {
   margin-top: 50px;
 }
+
+thead {
+  position: sticky;
+  top: 0;
+}
+
+tbody > tr > :nth-child(6),
+tbody > tr > :nth-child(7) {
+  color: #ee434b;
+  width: 200px;
+  text-align: center;
+  font-weight: bold;
+}
+
+tbody > tr > :nth-child(1),
+tbody > tr > :nth-child(2),
+tbody > tr > :nth-child(3),
+tbody > tr > :nth-child(4),
+tbody > tr > :nth-child(5) {
+  width: 200px;
+  text-align: center;
+  font-weight: bold;
+}
+
+tbody > tr > :nth-child(8),
+tbody > tr > :nth-child(9) {
+  width: 200px;
+  text-align: center;
+  font-weight: bold;
+}
+tbody > tr > :nth-child(13),
+tbody > tr > :nth-child(14) {
+  color: #ee434b;
+  width: 200px;
+  text-align: center;
+  font-weight: bold;
+}
+
+tbody > tr > :nth-child(10) {
+  color: #1ea05b;
+  width: 200px;
+  text-align: center;
+  font-weight: bold;
+}
+tbody > tr > :nth-child(11),
+tbody > tr > :nth-child(12) {
+  color: rgb(17, 132, 254);
+  width: 200px;
+  text-align: center;
+  font-weight: bold;
+}
+
+tbody > tr > :nth-child(15),
+tbody > tr > :nth-child(16) {
+  color: #1ea05b;
+  width: 200px;
+  text-align: center;
+  font-weight: bold;
+}
+
+tbody > tr > :nth-child(17),
+tbody > tr > :nth-child(18),
+tbody > tr > :nth-child(20),
+tbody > tr > :nth-child(19) {
+  width: 200px;
+  text-align: center;
+  font-weight: bold;
+}
+/* 
+tbody > tr > :nth-child(7) {
+  font-weight: bold;
+  color: red;
+  width: 200px;
+  text-align: center;
+} */
