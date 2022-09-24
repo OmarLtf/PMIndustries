@@ -129,6 +129,8 @@ const NavBar = (props) => {
         </nav>
       </div>
     );
+  } else {
+    return <Redirect to="/login"></Redirect>;
   }
 };
 

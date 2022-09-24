@@ -55,6 +55,7 @@ app.get("/tracData", (req, res) => {
 app.get("/login/:username-:password", (req, res) => {
   // const name = req.body.userName;
   // const password = req.body.password;
+  console.log("hello from login");
   const name = req.params.username;
   const password = req.params.password;
   db.query(

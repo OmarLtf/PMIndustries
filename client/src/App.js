@@ -16,11 +16,13 @@ import Traceability from "./Components//Traceability Table/Interface";
 import UserLogedIn from "./Helper/context";
 
 function App() {
+  // localStorage.setItem(
+  //   "object",
+  //   JSON.stringify({ name: "", matricule: "", role: "" })
+  // );
   const loggedIn = window.localStorage.getItem("loggedIn");
   var retrievedObject = localStorage.getItem("object");
   const userData = JSON.parse(retrievedObject);
-  console.log(userData.name);
-  console.log(userData.role);
   return (
     <BrowserRouter>
       <Logout state={loggedIn}></Logout>

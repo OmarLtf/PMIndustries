@@ -46,9 +46,7 @@ function Form(props) {
   }
   return (
     <div className="containor">
-      <h1 className="title bloquage">Table Zinguage</h1>
       <button onClick={onDownload} className="exportButton">
-        {" "}
         Exporter fichier excel
       </button>
 
